@@ -37,7 +37,7 @@
             this.col_Monday_Group = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_Monday_Audit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
-            this.ds_db = new TimeTable.ds_db();
+            this.ds_timetable = new TimeTable.ds_db();
             this.ft_timetableTableAdapter = new TimeTable.timetabledbDataSetTableAdapters.ft_timetableTableAdapter();
             this.tam_db = new TimeTable.timetabledbDataSetTableAdapters.TableAdapterManager();
             this.lessonsTableAdapter = new TimeTable.timetabledbDataSetTableAdapters.LessonsTableAdapter();
@@ -49,12 +49,14 @@
             this.cb_groups = new System.Windows.Forms.ComboBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.cb_days = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ftMonday)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ds_db)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ds_timetable)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // dgv_ftMonday
@@ -74,7 +76,7 @@
             this.dgv_ftMonday.Location = new System.Drawing.Point(18, 80);
             this.dgv_ftMonday.Name = "dgv_ftMonday";
             this.dgv_ftMonday.RowHeadersVisible = false;
-            this.dgv_ftMonday.Size = new System.Drawing.Size(634, 286);
+            this.dgv_ftMonday.Size = new System.Drawing.Size(634, 80);
             this.dgv_ftMonday.TabIndex = 0;
             this.dgv_ftMonday.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_ftMonday_CellEndEdit);
             // 
@@ -124,10 +126,10 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // ds_db
+            // ds_timetable
             // 
-            this.ds_db.DataSetName = "timetabledbDataSet";
-            this.ds_db.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.ds_timetable.DataSetName = "timetabledbDataSet";
+            this.ds_timetable.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // ft_timetableTableAdapter
             // 
@@ -169,7 +171,7 @@
             // 
             // cb_groups
             // 
-            this.cb_groups.DataSource = this.ds_db;
+            this.cb_groups.DataSource = this.ds_timetable;
             this.cb_groups.DisplayMember = "getGroupsFT.GroupNumber";
             this.cb_groups.FormattingEnabled = true;
             this.cb_groups.Location = new System.Drawing.Point(43, 3);
@@ -193,6 +195,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.dataGridView1);
             this.tabPage1.Controls.Add(this.cb_days);
             this.tabPage1.Controls.Add(this.cb_groups);
             this.tabPage1.Controls.Add(this.dgv_ftMonday);
@@ -204,6 +207,14 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(18, 190);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(634, 150);
+            this.dataGridView1.TabIndex = 4;
             // 
             // cb_days
             // 
@@ -242,9 +253,10 @@
             this.Text = "Расписание занятий";
             this.Load += new System.EventHandler(this.form_main_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ftMonday)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ds_db)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ds_timetable)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -260,7 +272,6 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn col_Monday_WeekTwo;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_Monday_Group;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_Monday_Audit;
-        private ds_db ds_db;
         private timetabledbDataSetTableAdapters.ft_timetableTableAdapter ft_timetableTableAdapter;
         private timetabledbDataSetTableAdapters.TableAdapterManager tam_db;
         private timetabledbDataSetTableAdapters.LessonsTableAdapter lessonsTableAdapter;
@@ -274,6 +285,8 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.ComboBox cb_days;
         private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private ds_db ds_timetable;
     }
 }
 

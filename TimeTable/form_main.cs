@@ -15,36 +15,43 @@ namespace TimeTable
         public form_main()
         {
             InitializeComponent();
-            
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var table = from this.ds_db
+            /*var table = from rowtt in ds_timetable.ft_timetable
+                        where rowtt.Day == 1
+                        join rowles in ds_timetable.Lessons on rowtt.LessonID equals rowles.LessonID
+                        join rowTeach in ds_timetable.Teachers on rowtt.TeacherID equals rowTeach.TeacherID
+                        select new { Number = rowtt.Number, Lesson = rowles.Title, 
+                            Teacher = String.Format("{0} {1} {2}", rowTeach.LastName, rowTeach.FirstName, rowTeach.Patronymic),
+                            rowtt.WeekOne, rowtt.WeekTwo, rowtt.GroupNumber, rowtt.AudienceNumber};
+            dataGridView1.DataSource = table;*/
         }
 
         private void form_main_Load(object sender, EventArgs e)
         {
-            this.teacherToLessonsTableAdapter.Fill(this.ds_db.TeacherToLessons);
-            this.teachersTableAdapter.Fill(this.ds_db.Teachers);
-            this.pt_timetableTableAdapter.Fill(this.ds_db.pt_timetable);
-            this.lessonsTableAdapter.Fill(this.ds_db.Lessons);
-            this.ft_timetableTableAdapter.Fill(this.ds_db.ft_timetable);
-            this.getGroupsFTTableAdapter.Fill(this.ds_db.getGroupsFT);
-            this.getGroupsPTTableAdapter.Fill(this.ds_db.getGroupsPT);
+            this.teacherToLessonsTableAdapter.Fill(this.ds_timetable.TeacherToLessons);
+            this.teachersTableAdapter.Fill(this.ds_timetable.Teachers);
+            this.pt_timetableTableAdapter.Fill(this.ds_timetable.pt_timetable);
+            this.lessonsTableAdapter.Fill(this.ds_timetable.Lessons);
+            this.ft_timetableTableAdapter.Fill(this.ds_timetable.ft_timetable);
+            this.getGroupsFTTableAdapter.Fill(this.ds_timetable.getGroupsFT);
+            this.getGroupsPTTableAdapter.Fill(this.ds_timetable.getGroupsPT);
             cb_groups.SelectedIndex = -1;
         }
 
         private void cb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cb_groups.SelectedIndex < 0 || cb_days.SelectedIndex < 0) 
+            if (cb_groups.SelectedIndex < 0 || cb_days.SelectedIndex < 0)
                 return;
-            //TimeTableTools.fillGridOfDay_Group(cb_days.SelectedIndex + 1, (int)((DataRowView)cb_groups.SelectedItem).Row.ItemArray[0], ref dgv_ftMonday, ref ds_db);
+            TimeTableTools.fillGridOfDay_Group(cb_days.SelectedIndex + 1, (int)((DataRowView)cb_groups.SelectedItem).Row.ItemArray[0], ref dgv_ftMonday, ref ds_timetable);
         }
 
-        /*private void dgv_ftMonday_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        private void dgv_ftMonday_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            switch(e.ColumnIndex)
+            switch (e.ColumnIndex)
             {
                 case 1:
                     break;
@@ -54,12 +61,14 @@ namespace TimeTable
                     {
                         int curday = cb_days.SelectedIndex + 1;
                         int curgroup = (int)((DataRowView)cb_groups.SelectedItem).Row.ItemArray[0];
-                        //ds_db.ft_timetable[cb_days]
+                        
                     }
-        }*/
+                    break;
+            }
+        }
     }
 
-    class TimeTableTools
+    public class TimeTableTools
     {
         public static void fillGridOfDay_Group(int dayNumber, int group, ref DataGridView grid,
             ref ds_db db, bool partTime = false)

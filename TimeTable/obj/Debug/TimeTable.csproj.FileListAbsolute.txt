@@ -8,3 +8,13 @@ E:\study\5 sem\Курсовая\Project\TimeTable\TimeTable\obj\Debug\TimeTable.
 E:\study\5 sem\Курсовая\Project\TimeTable\TimeTable\obj\Debug\TimeTable.csproj.GenerateResource.Cache
 E:\study\5 sem\Курсовая\Project\TimeTable\TimeTable\obj\Debug\TimeTable.exe
 E:\study\5 sem\Курсовая\Project\TimeTable\TimeTable\obj\Debug\TimeTable.pdb
+E:\study\5 sem\curs\Project\TimeTable\TimeTable\bin\Debug\TimeTable.exe.config
+E:\study\5 sem\curs\Project\TimeTable\TimeTable\obj\Debug\TimeTable.exe
+E:\study\5 sem\curs\Project\TimeTable\TimeTable\bin\Debug\timetabledb.accdb
+E:\study\5 sem\curs\Project\TimeTable\TimeTable\bin\Debug\TimeTable.exe
+E:\study\5 sem\curs\Project\TimeTable\TimeTable\bin\Debug\TimeTable.pdb
+E:\study\5 sem\curs\Project\TimeTable\TimeTable\obj\Debug\TimeTable.csprojResolveAssemblyReference.cache
+E:\study\5 sem\curs\Project\TimeTable\TimeTable\obj\Debug\TimeTable.form_main.resources
+E:\study\5 sem\curs\Project\TimeTable\TimeTable\obj\Debug\TimeTable.Properties.Resources.resources
+E:\study\5 sem\curs\Project\TimeTable\TimeTable\obj\Debug\TimeTable.csproj.GenerateResource.Cache
+E:\study\5 sem\curs\Project\TimeTable\TimeTable\obj\Debug\TimeTable.pdb
