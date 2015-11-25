@@ -20,7 +20,7 @@ namespace TimeTable
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            var table = from this.ds_db
         }
 
         private void form_main_Load(object sender, EventArgs e)
@@ -39,10 +39,10 @@ namespace TimeTable
         {
             if (cb_groups.SelectedIndex < 0 || cb_days.SelectedIndex < 0) 
                 return;
-            TimeTableTools.fillGridOfDay_Group(cb_days.SelectedIndex + 1, (int)((DataRowView)cb_groups.SelectedItem).Row.ItemArray[0], ref dgv_ftMonday, ref ds_db);
+            //TimeTableTools.fillGridOfDay_Group(cb_days.SelectedIndex + 1, (int)((DataRowView)cb_groups.SelectedItem).Row.ItemArray[0], ref dgv_ftMonday, ref ds_db);
         }
 
-        private void dgv_ftMonday_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        /*private void dgv_ftMonday_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             switch(e.ColumnIndex)
             {
@@ -54,9 +54,9 @@ namespace TimeTable
                     {
                         int curday = cb_days.SelectedIndex + 1;
                         int curgroup = (int)((DataRowView)cb_groups.SelectedItem).Row.ItemArray[0];
-                        ds_db.ft_timetable[cb_days]
+                        //ds_db.ft_timetable[cb_days]
                     }
-        }
+        }*/
     }
 
     class TimeTableTools
