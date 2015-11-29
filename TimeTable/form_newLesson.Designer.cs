@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.tb_short = new System.Windows.Forms.TextBox();
             this.tb_full = new System.Windows.Forms.TextBox();
             this.l_fullname = new System.Windows.Forms.Label();
@@ -36,19 +35,17 @@
             this.but_ok = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.tb_Name = new System.Windows.Forms.TextBox();
-            this.tb_Patr = new System.Windows.Forms.TextBox();
-            this.ds_db = new TimeTable.ds_db();
-            this.teachersBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.teachersTableAdapter = new TimeTable.ds_dbTableAdapters.TeachersTableAdapter();
             this.cb_LastName = new System.Windows.Forms.ComboBox();
+            this.tb_Patr = new System.Windows.Forms.TextBox();
+            this.tb_Name = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.but_newTeacher = new System.Windows.Forms.Button();
+            this.ds_db = new TimeTable.ds_db();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ds_db)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.teachersBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tb_short
@@ -117,28 +114,35 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Location = new System.Drawing.Point(12, 97);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(322, 95);
+            this.groupBox2.Size = new System.Drawing.Size(268, 95);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Преподаватель";
             // 
-            // label2
+            // cb_LastName
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 20);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Фамилия:";
+            this.cb_LastName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cb_LastName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.cb_LastName.FormattingEnabled = true;
+            this.cb_LastName.Location = new System.Drawing.Point(76, 17);
+            this.cb_LastName.Name = "cb_LastName";
+            this.cb_LastName.Size = new System.Drawing.Size(184, 21);
+            this.cb_LastName.TabIndex = 6;
+            this.cb_LastName.SelectedIndexChanged += new System.EventHandler(this.cb_LastName_SelectedIndexChanged);
             // 
-            // label3
+            // tb_Patr
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 44);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(32, 13);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Имя:";
+            this.tb_Patr.Location = new System.Drawing.Point(76, 64);
+            this.tb_Patr.Name = "tb_Patr";
+            this.tb_Patr.Size = new System.Drawing.Size(184, 20);
+            this.tb_Patr.TabIndex = 5;
+            // 
+            // tb_Name
+            // 
+            this.tb_Name.Location = new System.Drawing.Point(76, 41);
+            this.tb_Name.Name = "tb_Name";
+            this.tb_Name.Size = new System.Drawing.Size(184, 20);
+            this.tb_Name.TabIndex = 4;
             // 
             // label4
             // 
@@ -149,50 +153,46 @@
             this.label4.TabIndex = 2;
             this.label4.Text = "Отчество:";
             // 
-            // tb_Name
+            // label3
             // 
-            this.tb_Name.Location = new System.Drawing.Point(76, 41);
-            this.tb_Name.Name = "tb_Name";
-            this.tb_Name.Size = new System.Drawing.Size(240, 20);
-            this.tb_Name.TabIndex = 4;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(11, 44);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(32, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Имя:";
             // 
-            // tb_Patr
+            // label2
             // 
-            this.tb_Patr.Location = new System.Drawing.Point(76, 64);
-            this.tb_Patr.Name = "tb_Patr";
-            this.tb_Patr.Size = new System.Drawing.Size(240, 20);
-            this.tb_Patr.TabIndex = 5;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(11, 20);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(59, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Фамилия:";
+            // 
+            // but_newTeacher
+            // 
+            this.but_newTeacher.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.but_newTeacher.Location = new System.Drawing.Point(287, 97);
+            this.but_newTeacher.Name = "but_newTeacher";
+            this.but_newTeacher.Size = new System.Drawing.Size(47, 95);
+            this.but_newTeacher.TabIndex = 6;
+            this.but_newTeacher.Text = "Новый преподаватель";
+            this.but_newTeacher.UseVisualStyleBackColor = true;
+            this.but_newTeacher.Click += new System.EventHandler(this.but_newTeacher_Click);
             // 
             // ds_db
             // 
             this.ds_db.DataSetName = "ds_db";
             this.ds_db.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // teachersBindingSource
-            // 
-            this.teachersBindingSource.DataMember = "Teachers";
-            this.teachersBindingSource.DataSource = this.ds_db;
-            // 
-            // teachersTableAdapter
-            // 
-            this.teachersTableAdapter.ClearBeforeFill = true;
-            // 
-            // cb_LastName
-            // 
-            this.cb_LastName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.cb_LastName.DataSource = this.teachersBindingSource;
-            this.cb_LastName.DisplayMember = "LastName";
-            this.cb_LastName.FormattingEnabled = true;
-            this.cb_LastName.Location = new System.Drawing.Point(76, 17);
-            this.cb_LastName.Name = "cb_LastName";
-            this.cb_LastName.Size = new System.Drawing.Size(240, 21);
-            this.cb_LastName.TabIndex = 6;
-            // 
             // form_newLesson
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(346, 228);
+            this.Controls.Add(this.but_newTeacher);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.but_ok);
@@ -203,13 +203,11 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Новый предмет";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.form_newLesson_FormClosing);
-            this.Load += new System.EventHandler(this.form_newLesson_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ds_db)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.teachersBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -229,8 +227,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private ds_db ds_db;
-        private System.Windows.Forms.BindingSource teachersBindingSource;
-        private ds_dbTableAdapters.TeachersTableAdapter teachersTableAdapter;
         private System.Windows.Forms.ComboBox cb_LastName;
+        private System.Windows.Forms.Button but_newTeacher;
     }
 }

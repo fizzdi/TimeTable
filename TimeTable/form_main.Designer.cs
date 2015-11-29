@@ -29,11 +29,19 @@
         private void InitializeComponent()
         {
             this.dgv_ftMonday = new System.Windows.Forms.DataGridView();
+            this.col_Monday_Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Monday_Lesson = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Monday_Teacher = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Monday_WeekOne = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.col_Monday_WeekTwo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.col_Monday_Audit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
             this.cb_groups = new System.Windows.Forms.ComboBox();
             this.ds_timetable = new TimeTable.ds_db();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.but_nextDay = new System.Windows.Forms.Button();
+            this.but_prevDay = new System.Windows.Forms.Button();
             this.cb_days = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.ft_timetableTableAdapter = new TimeTable.ds_dbTableAdapters.ft_timetableTableAdapter();
@@ -41,15 +49,8 @@
             this.lessonsTableAdapter = new TimeTable.ds_dbTableAdapters.LessonsTableAdapter();
             this.pt_timetableTableAdapter = new TimeTable.ds_dbTableAdapters.pt_timetableTableAdapter();
             this.teachersTableAdapter = new TimeTable.ds_dbTableAdapters.TeachersTableAdapter();
-            this.teacherToLessonsTableAdapter = new TimeTable.ds_dbTableAdapters.TeacherToLessonsTableAdapter();
             this.getGroupsFTTableAdapter = new TimeTable.ds_dbTableAdapters.getGroupsFTTableAdapter();
             this.getGroupsPTTableAdapter = new TimeTable.ds_dbTableAdapters.getGroupsPTTableAdapter();
-            this.col_Monday_Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Monday_Lesson = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Monday_Teacher = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Monday_WeekOne = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.col_Monday_WeekTwo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.col_Monday_Audit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ftMonday)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ds_timetable)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -58,6 +59,7 @@
             // 
             // dgv_ftMonday
             // 
+            this.dgv_ftMonday.AllowUserToResizeRows = false;
             this.dgv_ftMonday.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -72,10 +74,42 @@
             this.dgv_ftMonday.Location = new System.Drawing.Point(6, 79);
             this.dgv_ftMonday.Name = "dgv_ftMonday";
             this.dgv_ftMonday.RowHeadersVisible = false;
-            this.dgv_ftMonday.Size = new System.Drawing.Size(548, 258);
+            this.dgv_ftMonday.Size = new System.Drawing.Size(548, 229);
             this.dgv_ftMonday.TabIndex = 0;
             this.dgv_ftMonday.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgv_ftMonday_CellBeginEdit);
             this.dgv_ftMonday.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_ftMonday_CellEndEdit);
+            this.dgv_ftMonday.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgv_ftMonday_EditingControlShowing);
+            // 
+            // col_Monday_Number
+            // 
+            this.col_Monday_Number.HeaderText = "№";
+            this.col_Monday_Number.Name = "col_Monday_Number";
+            this.col_Monday_Number.Width = 30;
+            // 
+            // col_Monday_Lesson
+            // 
+            this.col_Monday_Lesson.HeaderText = "Предмет";
+            this.col_Monday_Lesson.Name = "col_Monday_Lesson";
+            // 
+            // col_Monday_Teacher
+            // 
+            this.col_Monday_Teacher.HeaderText = "Преподаватель";
+            this.col_Monday_Teacher.Name = "col_Monday_Teacher";
+            // 
+            // col_Monday_WeekOne
+            // 
+            this.col_Monday_WeekOne.HeaderText = "Первая неделя";
+            this.col_Monday_WeekOne.Name = "col_Monday_WeekOne";
+            // 
+            // col_Monday_WeekTwo
+            // 
+            this.col_Monday_WeekTwo.HeaderText = "Вторая неделя";
+            this.col_Monday_WeekTwo.Name = "col_Monday_WeekTwo";
+            // 
+            // col_Monday_Audit
+            // 
+            this.col_Monday_Audit.HeaderText = "№ аудитории";
+            this.col_Monday_Audit.Name = "col_Monday_Audit";
             // 
             // button1
             // 
@@ -119,6 +153,8 @@
             // tabPage1
             // 
             this.tabPage1.AutoScroll = true;
+            this.tabPage1.Controls.Add(this.but_nextDay);
+            this.tabPage1.Controls.Add(this.but_prevDay);
             this.tabPage1.Controls.Add(this.cb_days);
             this.tabPage1.Controls.Add(this.cb_groups);
             this.tabPage1.Controls.Add(this.dgv_ftMonday);
@@ -130,6 +166,26 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // but_nextDay
+            // 
+            this.but_nextDay.Location = new System.Drawing.Point(479, 314);
+            this.but_nextDay.Name = "but_nextDay";
+            this.but_nextDay.Size = new System.Drawing.Size(75, 23);
+            this.but_nextDay.TabIndex = 5;
+            this.but_nextDay.Text = ">>";
+            this.but_nextDay.UseVisualStyleBackColor = true;
+            this.but_nextDay.Click += new System.EventHandler(this.but_nextDay_Click);
+            // 
+            // but_prevDay
+            // 
+            this.but_prevDay.Location = new System.Drawing.Point(6, 314);
+            this.but_prevDay.Name = "but_prevDay";
+            this.but_prevDay.Size = new System.Drawing.Size(75, 23);
+            this.but_prevDay.TabIndex = 4;
+            this.but_prevDay.Text = "<<";
+            this.but_prevDay.UseVisualStyleBackColor = true;
+            this.but_prevDay.Click += new System.EventHandler(this.but_prevDay_Click);
             // 
             // cb_days
             // 
@@ -145,14 +201,14 @@
             this.cb_days.Name = "cb_days";
             this.cb_days.Size = new System.Drawing.Size(121, 21);
             this.cb_days.TabIndex = 3;
-            this.cb_days.SelectionChangeCommitted += new System.EventHandler(this.cb_SelectedIndexChanged);
+            this.cb_days.SelectedIndexChanged += new System.EventHandler(this.cb_SelectedIndexChanged);
             // 
             // tabPage2
             // 
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(677, 384);
+            this.tabPage2.Size = new System.Drawing.Size(560, 343);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -168,7 +224,6 @@
             this.tam_db.LessonsTableAdapter = this.lessonsTableAdapter;
             this.tam_db.pt_timetableTableAdapter = this.pt_timetableTableAdapter;
             this.tam_db.TeachersTableAdapter = this.teachersTableAdapter;
-            this.tam_db.TeacherToLessonsTableAdapter = this.teacherToLessonsTableAdapter;
             this.tam_db.UpdateOrder = TimeTable.ds_dbTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // lessonsTableAdapter
@@ -183,10 +238,6 @@
             // 
             this.teachersTableAdapter.ClearBeforeFill = true;
             // 
-            // teacherToLessonsTableAdapter
-            // 
-            this.teacherToLessonsTableAdapter.ClearBeforeFill = true;
-            // 
             // getGroupsFTTableAdapter
             // 
             this.getGroupsFTTableAdapter.ClearBeforeFill = true;
@@ -194,37 +245,6 @@
             // getGroupsPTTableAdapter
             // 
             this.getGroupsPTTableAdapter.ClearBeforeFill = true;
-            // 
-            // col_Monday_Number
-            // 
-            this.col_Monday_Number.HeaderText = "№";
-            this.col_Monday_Number.Name = "col_Monday_Number";
-            this.col_Monday_Number.Width = 30;
-            // 
-            // col_Monday_Lesson
-            // 
-            this.col_Monday_Lesson.HeaderText = "Предмет";
-            this.col_Monday_Lesson.Name = "col_Monday_Lesson";
-            // 
-            // col_Monday_Teacher
-            // 
-            this.col_Monday_Teacher.HeaderText = "Преподаватель";
-            this.col_Monday_Teacher.Name = "col_Monday_Teacher";
-            // 
-            // col_Monday_WeekOne
-            // 
-            this.col_Monday_WeekOne.HeaderText = "Первая неделя";
-            this.col_Monday_WeekOne.Name = "col_Monday_WeekOne";
-            // 
-            // col_Monday_WeekTwo
-            // 
-            this.col_Monday_WeekTwo.HeaderText = "Вторая неделя";
-            this.col_Monday_WeekTwo.Name = "col_Monday_WeekTwo";
-            // 
-            // col_Monday_Audit
-            // 
-            this.col_Monday_Audit.HeaderText = "№ аудитории";
-            this.col_Monday_Audit.Name = "col_Monday_Audit";
             // 
             // form_main
             // 
@@ -259,7 +279,6 @@
         private ds_dbTableAdapters.LessonsTableAdapter lessonsTableAdapter;
         private ds_dbTableAdapters.pt_timetableTableAdapter pt_timetableTableAdapter;
         private ds_dbTableAdapters.TeachersTableAdapter teachersTableAdapter;
-        private ds_dbTableAdapters.TeacherToLessonsTableAdapter teacherToLessonsTableAdapter;
         private ds_dbTableAdapters.getGroupsFTTableAdapter getGroupsFTTableAdapter;
         private ds_dbTableAdapters.getGroupsPTTableAdapter getGroupsPTTableAdapter;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_Monday_Number;
@@ -268,6 +287,8 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn col_Monday_WeekOne;
         private System.Windows.Forms.DataGridViewCheckBoxColumn col_Monday_WeekTwo;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_Monday_Audit;
+        private System.Windows.Forms.Button but_nextDay;
+        private System.Windows.Forms.Button but_prevDay;
     }
 }
 
