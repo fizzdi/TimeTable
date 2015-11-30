@@ -32,14 +32,6 @@ namespace TimeTable
                     tb_short.Text += subString(s);
                 }
             }
-
-            AutoCompleteStringCollection source = new AutoCompleteStringCollection();
-            var teachers = from row in ds_db.Teachers
-                           select row.LastName;
-            var teachers_array = teachers.ToArray();
-            cb_LastName.Items.AddRange(teachers_array);
-            source.AddRange(teachers_array);
-            cb_LastName.AutoCompleteCustomSource = source;
         }
 
         private string subString(string s)
@@ -68,30 +60,6 @@ namespace TimeTable
         private void but_ok_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void form_newLesson_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (cb_LastName.Text == "" || tb_Patr.Text == "" || tb_Name.Text == "")
-            {
-                MessageBox.Show("Заполненны не все поля", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                e.Cancel = true;
-            }
-        }
-
-        private void cb_LastName_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            tb_Name.Text = (string)ds_db.Teachers.FindByTeacherID((int)cb_LastName.SelectedValue)["FirstName"];
-            tb_Patr.Text = (string)ds_db.Teachers.FindByTeacherID((int)cb_LastName.SelectedValue)["Patronymic"];
-        }
-
-        private void but_newTeacher_Click(object sender, EventArgs e)
-        {
-            ds_db.Teachers.AddTeachersRow(cb_LastName.Text, tb_Name.Text, tb_Patr.Text);
-            var teachers = from row in ds_db.Teachers
-                           select row.LastName;
-            cb_LastName.Items.Clear();
-            cb_LastName.Items.AddRange(teachers.ToArray());
         }
     }
 }
