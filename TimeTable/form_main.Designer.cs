@@ -28,18 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ds_timetable = new TimeTable.ds_db();
-            this.ft_timetableTableAdapter = new TimeTable.ds_dbTableAdapters.ft_timetableTableAdapter();
-            this.tam_db = new TimeTable.ds_dbTableAdapters.TableAdapterManager();
-            this.lessonsTableAdapter = new TimeTable.ds_dbTableAdapters.LessonsTableAdapter();
-            this.pt_timetableTableAdapter = new TimeTable.ds_dbTableAdapters.pt_timetableTableAdapter();
-            this.teachersTableAdapter = new TimeTable.ds_dbTableAdapters.TeachersTableAdapter();
-            this.getGroupsFTTableAdapter = new TimeTable.ds_dbTableAdapters.getGroupsFTTableAdapter();
-            this.getGroupsPTTableAdapter = new TimeTable.ds_dbTableAdapters.getGroupsPTTableAdapter();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(form_main));
             this.dgv_maintable = new System.Windows.Forms.DataGridView();
             this.col_Monday_Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_Monday_Lesson = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_Monday_Teacher = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_subgroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_Monday_WeekOne = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.col_Monday_WeekTwo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.col_Monday_Audit = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -66,51 +60,21 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.rb_parttime = new System.Windows.Forms.RadioButton();
             this.rb_fulltime = new System.Windows.Forms.RadioButton();
-            ((System.ComponentModel.ISupportInitialize)(this.ds_timetable)).BeginInit();
+            this.ds_timetable = new TimeTable.ds_db();
+            this.ft_timetableTableAdapter = new TimeTable.ds_dbTableAdapters.ft_timetableTableAdapter();
+            this.tam_db = new TimeTable.ds_dbTableAdapters.TableAdapterManager();
+            this.lessonsTableAdapter = new TimeTable.ds_dbTableAdapters.LessonsTableAdapter();
+            this.pt_timetableTableAdapter = new TimeTable.ds_dbTableAdapters.pt_timetableTableAdapter();
+            this.teachersTableAdapter = new TimeTable.ds_dbTableAdapters.TeachersTableAdapter();
+            this.getGroupsFTTableAdapter = new TimeTable.ds_dbTableAdapters.getGroupsFTTableAdapter();
+            this.getGroupsPTTableAdapter = new TimeTable.ds_dbTableAdapters.getGroupsPTTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_maintable)).BeginInit();
             this.ms_menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_sem)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ds_timetable)).BeginInit();
             this.SuspendLayout();
-            // 
-            // ds_timetable
-            // 
-            this.ds_timetable.DataSetName = "ds_db";
-            this.ds_timetable.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // ft_timetableTableAdapter
-            // 
-            this.ft_timetableTableAdapter.ClearBeforeFill = true;
-            // 
-            // tam_db
-            // 
-            this.tam_db.BackupDataSetBeforeUpdate = false;
-            this.tam_db.ft_timetableTableAdapter = this.ft_timetableTableAdapter;
-            this.tam_db.LessonsTableAdapter = this.lessonsTableAdapter;
-            this.tam_db.pt_timetableTableAdapter = this.pt_timetableTableAdapter;
-            this.tam_db.TeachersTableAdapter = this.teachersTableAdapter;
-            this.tam_db.UpdateOrder = TimeTable.ds_dbTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            // 
-            // lessonsTableAdapter
-            // 
-            this.lessonsTableAdapter.ClearBeforeFill = true;
-            // 
-            // pt_timetableTableAdapter
-            // 
-            this.pt_timetableTableAdapter.ClearBeforeFill = true;
-            // 
-            // teachersTableAdapter
-            // 
-            this.teachersTableAdapter.ClearBeforeFill = true;
-            // 
-            // getGroupsFTTableAdapter
-            // 
-            this.getGroupsFTTableAdapter.ClearBeforeFill = true;
-            // 
-            // getGroupsPTTableAdapter
-            // 
-            this.getGroupsPTTableAdapter.ClearBeforeFill = true;
             // 
             // dgv_maintable
             // 
@@ -123,13 +87,14 @@
             this.col_Monday_Number,
             this.col_Monday_Lesson,
             this.col_Monday_Teacher,
+            this.col_subgroup,
             this.col_Monday_WeekOne,
             this.col_Monday_WeekTwo,
             this.col_Monday_Audit});
             this.dgv_maintable.Location = new System.Drawing.Point(12, 108);
             this.dgv_maintable.Name = "dgv_maintable";
             this.dgv_maintable.RowHeadersVisible = false;
-            this.dgv_maintable.Size = new System.Drawing.Size(533, 225);
+            this.dgv_maintable.Size = new System.Drawing.Size(533, 234);
             this.dgv_maintable.TabIndex = 0;
             this.dgv_maintable.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgv_maintable_CellBeginEdit);
             this.dgv_maintable.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_maintable_CellEndEdit);
@@ -152,15 +117,22 @@
             this.col_Monday_Teacher.HeaderText = "Преподаватель";
             this.col_Monday_Teacher.Name = "col_Monday_Teacher";
             // 
+            // col_subgroup
+            // 
+            this.col_subgroup.HeaderText = "Подгруппа";
+            this.col_subgroup.Name = "col_subgroup";
+            // 
             // col_Monday_WeekOne
             // 
             this.col_Monday_WeekOne.HeaderText = "Первая неделя";
             this.col_Monday_WeekOne.Name = "col_Monday_WeekOne";
+            this.col_Monday_WeekOne.Width = 50;
             // 
             // col_Monday_WeekTwo
             // 
             this.col_Monday_WeekTwo.HeaderText = "Вторая неделя";
             this.col_Monday_WeekTwo.Name = "col_Monday_WeekTwo";
+            this.col_Monday_WeekTwo.Width = 50;
             // 
             // col_Monday_Audit
             // 
@@ -197,7 +169,7 @@
             // but_prevDay
             // 
             this.but_prevDay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.but_prevDay.Location = new System.Drawing.Point(12, 339);
+            this.but_prevDay.Location = new System.Drawing.Point(12, 348);
             this.but_prevDay.Name = "but_prevDay";
             this.but_prevDay.Size = new System.Drawing.Size(75, 23);
             this.but_prevDay.TabIndex = 4;
@@ -208,7 +180,7 @@
             // but_nextDay
             // 
             this.but_nextDay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.but_nextDay.Location = new System.Drawing.Point(470, 339);
+            this.but_nextDay.Location = new System.Drawing.Point(470, 348);
             this.but_nextDay.Name = "but_nextDay";
             this.but_nextDay.Size = new System.Drawing.Size(75, 23);
             this.but_nextDay.TabIndex = 5;
@@ -403,24 +375,62 @@
             this.rb_fulltime.Text = "Очная";
             this.rb_fulltime.UseVisualStyleBackColor = true;
             // 
+            // ds_timetable
+            // 
+            this.ds_timetable.DataSetName = "ds_db";
+            this.ds_timetable.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // ft_timetableTableAdapter
+            // 
+            this.ft_timetableTableAdapter.ClearBeforeFill = true;
+            // 
+            // tam_db
+            // 
+            this.tam_db.BackupDataSetBeforeUpdate = false;
+            this.tam_db.ft_timetableTableAdapter = this.ft_timetableTableAdapter;
+            this.tam_db.LessonsTableAdapter = this.lessonsTableAdapter;
+            this.tam_db.pt_timetableTableAdapter = this.pt_timetableTableAdapter;
+            this.tam_db.TeachersTableAdapter = this.teachersTableAdapter;
+            this.tam_db.UpdateOrder = TimeTable.ds_dbTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            // 
+            // lessonsTableAdapter
+            // 
+            this.lessonsTableAdapter.ClearBeforeFill = true;
+            // 
+            // pt_timetableTableAdapter
+            // 
+            this.pt_timetableTableAdapter.ClearBeforeFill = true;
+            // 
+            // teachersTableAdapter
+            // 
+            this.teachersTableAdapter.ClearBeforeFill = true;
+            // 
+            // getGroupsFTTableAdapter
+            // 
+            this.getGroupsFTTableAdapter.ClearBeforeFill = true;
+            // 
+            // getGroupsPTTableAdapter
+            // 
+            this.getGroupsPTTableAdapter.ClearBeforeFill = true;
+            // 
             // form_main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(557, 372);
+            this.ClientSize = new System.Drawing.Size(557, 381);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.but_nextDay);
             this.Controls.Add(this.but_prevDay);
             this.Controls.Add(this.dgv_maintable);
             this.Controls.Add(this.ms_menu);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.ms_menu;
             this.MinimumSize = new System.Drawing.Size(480, 400);
             this.Name = "form_main";
             this.Text = "Расписание занятий";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.form_main_FormClosing);
             this.Load += new System.EventHandler(this.form_main_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.ds_timetable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_maintable)).EndInit();
             this.ms_menu.ResumeLayout(false);
             this.ms_menu.PerformLayout();
@@ -429,6 +439,7 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ds_timetable)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -445,12 +456,6 @@
         private ds_dbTableAdapters.getGroupsFTTableAdapter getGroupsFTTableAdapter;
         private ds_dbTableAdapters.getGroupsPTTableAdapter getGroupsPTTableAdapter;
         private System.Windows.Forms.DataGridView dgv_maintable;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_Monday_Number;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_Monday_Lesson;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_Monday_Teacher;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn col_Monday_WeekOne;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn col_Monday_WeekTwo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_Monday_Audit;
         private System.Windows.Forms.ComboBox cb_groups;
         private System.Windows.Forms.ComboBox cb_days;
         private System.Windows.Forms.Button but_prevDay;
@@ -474,6 +479,13 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton rb_parttime;
         private System.Windows.Forms.RadioButton rb_fulltime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_Monday_Number;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_Monday_Lesson;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_Monday_Teacher;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_subgroup;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn col_Monday_WeekOne;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn col_Monday_WeekTwo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_Monday_Audit;
     }
 }
 

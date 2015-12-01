@@ -117,6 +117,30 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="col_Monday_Number.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="col_Monday_Lesson.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="col_Monday_Teacher.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="col_subgroup.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="col_Monday_WeekOne.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="col_Monday_WeekTwo.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="col_Monday_Audit.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="ms_menu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 100</value>
+  </metadata>
   <metadata name="ds_timetable.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
@@ -141,28 +165,84 @@
   <metadata name="getGroupsPTTableAdapter.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>181, 61</value>
   </metadata>
-  <metadata name="col_Monday_Number.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="col_Monday_Lesson.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="col_Monday_Teacher.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="col_Monday_WeekOne.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="col_Monday_WeekTwo.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="col_Monday_Audit.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="ms_menu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 100</value>
-  </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>107</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAICAAAAEAIACoEAAAFgAAACgAAAAgAAAAQAAAAAEAIAAAAAAAABAAABMLAAATCwAAAAAAAAAA
+        AACj//j/p//4/6r/+P+u//j/sf/5/7T/+f+4//n/vP/6/7//+v/C//r/xf/6/8n/+v/M//v/z//7/9P/
+        +//W//z/2P/8/9v//P/e//z/4f/9/+T//P/n//3/6f/9/+z//f/u//3/8f/+//L//v/0//7/9v////j/
+        /v/6//7//P///6D/+P+j//f/p//4/6r/+P+u//n/sf/5/7X/+f+4//n/u//5/7//+v/C//r/xv/6/8n/
+        +//M//v/z//8/9L/+//V//v/2P/8/9v//P/e//z/4f/9/+T//f/n//3/6P/9/+v//f/u//7/8P/+//P/
+        /v/0//7/9//+//n////6//7/nf/3/6H/9/+k//f/p//4/6r/+P+u//n/sf/5/7X/+f+4//r/vP/6/7//
+        +v/C//r/xv/6/8n/+//M//v/z//7/9L/+//V//z/2P/8/9v//P/e//3/4f/9/+T//P/n//3/6f/9/+z/
+        /f/u//7/8P/9//L//v/1////9v/+//n///+Z//f/nP/3/6D/9/+k//j/p//4/6r/+P+u//n/sv/4/7T/
+        +f+4//n/u//5/77/+f/C//r/xf/7/8n/+//M//v/z//7/9L/+//V//z/2P/8/9v//P/e//3/4f/9/+T/
+        /f/m//z/6f/+/+v//v/u//3/8f/9//L//v/0//7/9//+/5b/9v+Z//b/nf/3/6D/+P+k//j/p//4/6r/
+        +P+u//j/sv/5/7X/+f+4//n/vP/6/7//+f/C//r/xf/6/8n/+//M//v/z//7/9L/+//W//v/2P/7/9v/
+        /P/e//z/4f/8/+T//f/n//3/6f/+/+v//v/t//7/8f/+//L//v/1//7/k//3/5b/9v+a//b/nP/3/6D/
+        9/+k//j/p//4/6r/+P+u//j/sv/5/7X/+f+4//n/u//5/7//+v/C//r/xf/6/8j/+//M//r/z//7/9L/
+        /P/V//z/2f/8/9z//P/e//z/4f/8/+T//f/n//3/6f/+/+z//f/u//7/8P/+//L//v+P//b/k//2/5b/
+        9/+Z//f/nf/3/6D/9/+j//j/p//4/6v/+P+u//j/sv/5/7X/+f+4//n/u//6/7//+v/C//r/xf/6/8n/
+        +//M//r/z//7/9L/+//W//v/2P/8/9v//P/e//z/4f/9/+T//f/m//3/6f/9/+v//f/u//7/8f/9/4z/
+        9v+P//b/V5z7/zxr/f9kqvr/nP/3/6D/9/+k//j/p//4/6r/+P+u//n/sv/4/7X/+f+4//r/vP/5/7//
+        +f/C//r/ydHO/8rRzv/N6eb/z//7/9L/+//W//v/2P/8/9v//P/e//3/4f/9/+T//f/m//3/6f/9/+z/
+        /f/u//7/iP/1/4z/9v8AAP//AAD//wAA//9Sjfz/nf/3/6D/9/+k//f/p//4/6v/+P+u//n/sv/5/7T/
+        +f+4//n/xaqo/9AAD//QAA//0AAP/9AAD//PQkj/0H1//9Gqqv/U3dr/2P/8/9z//P/e//z/4f/9/+T/
+        /f/m//3/6f/9/+v//v+F//X/iP/2/wAA//8AAP//AAD//wAA//+Z//f/nP/2/6D/+P+j//j/p//4/6v/
+        +P+u//n/sf/5/7X/+f/QAA//0AAP/9AAD//QAA//0AAP/9AAD//QAA//0AAP/9AAD//RQkj/1Kqq/9r0
+        8f/e//z/4f/8/+T//P/m//3/6f/9/4L/9f+F//X/HkL+/wAA//8AAP//ESb+/5b/9v+a//f/nf/3/6D/
+        9/+j//f/p//4/6r/+P+u//j/sf/5/9AAD//QAA//0AAP/9AAD//QAA//0AAP/9AAD//QAA//0AAP/9AA
+        D//QAA//0AAP/9FCSP/b3dz/4f/9/+P//f/m//3/efT2/2rR+P9Xqvr/AAD//wAA//8AAP//kv/2/5b/
+        9v+Z//b/nf/3/6D/9/+j//f/p//4/6v/+P+u//n/wKqo/8lrbf/Ka23/xaqo/8Ld2v/C//r/ydHO/8yq
+        qf/PWFz/0AAP/9AAD//QAA//0AAP/9AAD//Yqqr/4f/8/+T//f8bQv7/AAD//wAA//8AAP//AAD//wAA
+        //+Q//b/k//3/5b/9v+Z//f/nf/3/6D/9/+j//f/p//4/6v/+P+u//j/sf/4/7X/+f+4//n/u//5/7//
+        +f/C//r/xv/6/8j/+//N6eb/0I2O/9AAD//QAA//0AAP/9AAD//WjY7/4PTy/wAA//8AAP//AAD//wAA
+        //8AAP//AAD//2O4+v+Q//X/k//2/5b/9/+a//b/nf/2/6D/9/+k//f/p//3/6r/+P+u//n/sf/5/7X/
+        +f+4//n/vP/6/7//+v/C//r/xv/7/8j/+//M//v/z+nm/9GNjv/QAA//0AAP/9AAD//TWF3/PY36/wAA
+        //8AAP//AAD//wAA//8AAP//AAD//zdr/f900fj/kv/3/5b/9v+Z//b/nf/3/6D/9/+j//f/p//4/6r/
+        +P+u//n/sf/5/7X/+f+4//n/vP/5/7//+v/C//r/xf/6/8n/+v/M//v/z//7/9GNjv/QAA//0AAP/9AA
+        D/9z//P/X9H3/1zF+P8AAP//AAD//wAA//8AAP//AAD//wAA//85a/3/hun3/5b/9v+Z//b/nf/3/6D/
+        +P+k//f/p//3/6r/+P+z6eT/wKqo/8KqqP+76eX/u//5/7//+v/C//r/xv/6/8j/+//M//v/z/Tw/9AA
+        D//QAA//0AAP/3D/8/9z//P/dv/z/wAA//8AAP//AAD//x1C/v8AAP//AAD//wAA//8RJv7/cMX5/5b/
+        9/+a//b/nf/3/6D/9/+k//f/p//4/8Zrbf/QAA//0AAP/9AAD//OJjD/yI2N/8XFwv/G0c7/ycXC/8yq
+        qf/PQkj/0AAP/9AAD//QAA//bf/z/2//9P9z//P/JFj9/wAA//8AAP//Uqr5/3Dd9/8qWP3/AAD//wAA
+        //8AAP//T437/4709/+Z//f/nf/3/6D/+P+k//f/xmtt/9AAD//QAA//0AAP/9AAD//QAA//0AAP/9AA
+        D//QAA//0AAP/9AAD//QAA//0AAP/9AmMP9q//P/bf/z/3D/9P8sa/z/AAD//wAA//9JnPr/f//0/4L/
+        9P9Xqvr/AAD//wAA//8AAP//L1j9/4/09/+Z//f/nP/3/6H/9/+q6eP/w319/9AAD//QAA//0AAP/9AA
+        D//QAA//0AAP/9AAD//QAA//0AAP/9AAD//QJjD/0MXD/2f/8/9q//P/bf/z/zN9+/8AAP//AAD//y9r
+        /P98//T/f//1/4P/9f9euPn/Dyb+/wAA//8AAP//L1j9/4/0+P+Z//f/nf/3/6D/9/+k//f/qvTu/7fF
+        wf++qqj/ylhc/9AAD//QAA//0AAP/9AAD//LjY3/ycXC/8j/+//M//v/Zf/y/2f/8v9q//L/Rqr5/wAA
+        //8AAP//GUL+/3n/9P98//T/f//0/4L/9f9y3ff/Dyb+/wAA//8AAP//RH38/5b/9v+Z//f/nP/3/6D/
+        +P+j//f/p//4/6v/+P+u//n/utHN/84mMP/QAA//0AAP/88mMP/F3dr/xv/6/8n/+v9i//L/Zf/y/2j/
+        8v9Fqvn/AAD//wAA//8AAP//cPT1/3n/9P98//T/f//1/4L/9P9Xqvr/AAD//wAA//8AAP//aLj6/5r0
+        7P/Da23/0AAP/7eqqP+k//f/p//4/6v/+P+t//j/t93Y/84mMP/QAA//0AAP/88mMP/F3dr/xf/7/2D/
+        8v9j//L/Vt31/xVC/f8AAP//AAD//wAA//9Xxfj/dv/0/3j/9P98//T/f//0/4L/9P8qWP3/AAD//wAA
+        //85a/3/pdHL/9AAD//QAA//0AAP/8Rrbf+w0cz/p//4/6r/+P+u//j/uN3Y/84mMP/QAA//0AAP/88m
+        MP/F3dr/Xv/y/1fp9P8IJv7/AAD//wAA//8AAP//AAD//wsm/v9Kqvn/X9H2/2LR9/9Qqvn/O337/wAA
+        //8AAP//AAD//wAA//+i0cv/0AAP/9AAD//QAA//0AAP/9AAD//KQkf/wI2M/7yqqP+6xcH/xI2N/9AA
+        D//QAA//0AAP/81YXP9c//L/TNH1/wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA
+        //8AAP//AAD//wAA//8AAP//H0L+/4z/9f+8fXz/0AAP/9AAD//QAA//0AAP/9AAD//QAA//0AAP/9AA
+        D//QAA//0AAP/9AAD//QAA//0AAP/1n/8f9c//H/G1j8/wAA//8AAP//AAD//wAA//8AAP//AAD//wAA
+        //8AAP//AAD//wAA//8AAP//AAD//z19+/9y3ff/iP/1/4v/9v+ruLP/saqm/7Kqpv/GWFv/0AAP/9AA
+        D//QAA//0AAP/9AAD//QAA//0AAP/9AAD//LWFz/WP/y/1r/8f9c//L/Ven0/z2q+P8/qvj/Qar5/0Kq
+        +P9Eqvn/Rqr5/0iq+f9Kqvn/U7j4/2LR9/919PX/f//1/4L/9P+F//X/if/1/4z/9v+P//b/k//2/5b/
+        9v+m3df/q9HM/7S4tP+5qqf/u6qn/7yqqP++qqj/t93Y/7X/+f9V//H/V//x/1r/8v9b//L/Xv/y/2D/
+        8v9j//P/Zf/y/2f/8v9r//L/bf/z/3D/8/9z//P/dv/z/3n/9P98//T/f//1/4L/9P+G//X/if/1/4v/
+        9f+P//X/kv/2/5b/9v+Z//b/nf/3/6D/9/+j//j/p//4/6r/+P+u//j/sv/5/1P/8f9W//H/V//x/1r/
+        8v9c//L/Xv/y/2D/8v9i//L/Zf/y/2j/8v9q//L/bf/z/3D/8/9z//T/dv/0/3n/9P98//X/f//0/4L/
+        9f+F//X/iP/1/4z/9v+P//b/k//2/5b/9v+a//f/nf/2/6D/+P+j//j/p//4/6v/+P+u//j/Uv/x/1P/
+        8f9W//H/V//x/1r/8f9b//H/Xv/y/2D/8v9j//L/Zv/y/2j/8/9q//L/bf/z/3D/8/9z//P/dv/z/3n/
+        8/98//X/f//1/4L/9f+F//X/if/2/4z/9v+P//b/k//2/5b/9v+Z//f/nf/3/6D/9/+k//f/p//4/6r/
+        +P9R//H/Uv/w/1T/8f9W//H/WP/y/1n/8v9b//L/Xv/y/2D/8v9i//L/Zf/z/2j/8/9q//P/bf/z/3D/
+        8/9z//T/df/0/3n/9P98//T/f//1/4L/9f+F//X/iP/1/4z/9v+P//X/kv/2/5X/9v+a//b/nf/3/6D/
+        9/+j//j/p//4/0//8P9R//H/Uv/w/1T/8f9W//H/V//x/1r/8v9b//L/Xv/y/2D/8v9i//P/Zf/y/2f/
+        8/9q//P/bf/z/3D/8/9z//T/dv/z/3n/9P97//X/f//0/4L/9f+F//X/if/1/4z/9v+P//X/k//2/5X/
+        9v+a//b/nf/3/6D/9/+j//f/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+</value>
+  </data>
 </root>

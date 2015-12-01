@@ -19,3 +19,6 @@ E:\study\5 sem\curs\Project\TimeTable\TimeTable\obj\Debug\TimeTable.csproj.Gener
 E:\study\5 sem\curs\Project\TimeTable\TimeTable\obj\Debug\TimeTable.pdb
 E:\study\5 sem\curs\Project\TimeTable\TimeTable\bin\Debug\timetabledb.accdb
 E:\study\5 sem\curs\Project\TimeTable\TimeTable\obj\Debug\TimeTable.form_newLesson.resources
+E:\study\5 sem\curs\Project\TimeTable — копия\TimeTable\bin\Debug\TimeTable.exe.config
+E:\study\5 sem\curs\Project\TimeTable — копия\TimeTable\obj\Debug\TimeTable.exe
+E:\study\5 sem\curs\Project\TimeTable — копия\TimeTable\obj\Debug\TimeTable.pdb

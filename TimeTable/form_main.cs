@@ -67,11 +67,14 @@ namespace TimeTable
             int curgroup = int.Parse(cb_groups.Text);
             int curnumber = (int)dgv_maintable[0, e.RowIndex].Value;
             var table = from rowtt in ds_timetable.ft_timetable
-                        where rowtt.Day == curday && rowtt.GroupNumber == curgroup && rowtt.Number == curnumber
+                        where rowtt.Day == curday 
+                        && rowtt.GroupNumber == curgroup 
+                        && rowtt.Number == curnumber
+                        && rowtt.LessonsRow.Title == (string)dgv_maintable[1, e.RowIndex].Value
                         select rowtt;
 
-            if (table.Count() == 0 && e.ColumnIndex != 3 && e.ColumnIndex != 4)
-                ds_timetable.ft_timetable.Addft_timetableRow(curday, (int)dgv_maintable[0, e.RowIndex].Value, curgroup, ds_timetable.Lessons[0], ds_timetable.Teachers[0], false, false, "");
+            if (table.Count() == 0 && e.ColumnIndex != 4 && e.ColumnIndex != 5)
+                ds_timetable.ft_timetable.Addft_timetableRow(curday, (int)dgv_maintable[0, e.RowIndex].Value, curgroup, ds_timetable.Lessons[0], ds_timetable.Teachers[0], false, false, "", 0);
 
             switch (e.ColumnIndex)
             {
@@ -90,9 +93,8 @@ namespace TimeTable
                                         break;
                                     }
                                 }
-                                dgv_maintable[1, e.RowIndex].Value = dgv_maintable[2, e.RowIndex].Value = dgv_maintable[5, e.RowIndex].Value = null;
-                                dgv_maintable[3, e.RowIndex].Value = dgv_maintable[4, e.RowIndex].Value = true;
-                                //tam_db.UpdateAll(ds_timetable);
+                                dgv_maintable[1, e.RowIndex].Value = dgv_maintable[2, e.RowIndex].Value = dgv_maintable[6, e.RowIndex].Value = null;
+                                dgv_maintable[4, e.RowIndex].Value = dgv_maintable[5, e.RowIndex].Value = true;
                                 return;
                             }
                         }
@@ -100,7 +102,6 @@ namespace TimeTable
                         var lessons = from row in ds_timetable.Lessons
                                       where row.Title == (string)dgv_maintable[1, e.RowIndex].Value
                                       select row;
-                        int lessonCode = -1;
                         if (lessons.Count() == 0)
                         {
                             DialogResult result = MessageBox.Show(this, "Вы хотите добавить новый предмет?", "Новый предмет", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -162,9 +163,9 @@ namespace TimeTable
 
                         foreach (var row in table)
                         {
-                            row.AudienceNumber = (string)dgv_maintable[5, e.RowIndex].Value;
-                            row.WeekOne = (bool)dgv_maintable[3, e.RowIndex].Value;
-                            row.WeekTwo = (bool)dgv_maintable[4, e.RowIndex].Value;
+                            row.AudienceNumber = (string)dgv_maintable[6, e.RowIndex].Value;
+                            row.WeekOne = (bool)dgv_maintable[4, e.RowIndex].Value;
+                            row.WeekTwo = (bool)dgv_maintable[5, e.RowIndex].Value;
                         }
                     }
                     break;
@@ -274,7 +275,7 @@ namespace TimeTable
             {
                 grid.Rows.Add();
                 grid[0, i].Value = i + 1;
-                grid[3, i].Value = grid[4, i].Value = false;
+                grid[4, i].Value = grid[5, i].Value = false;
             }
 
             if (partTime)
@@ -297,9 +298,9 @@ namespace TimeTable
                         grid[1, indOfrow].Value = row.LessonsRow.Title;
                         grid[2, indOfrow].Value = String.Format("{0} {1} {2}",
                         row.TeachersRow.LastName, row.TeachersRow.FirstName, row.TeachersRow.Patronymic);
-                        grid[3, indOfrow].Value = (bool)row[5];
-                        grid[4, indOfrow].Value = (bool)row[6];
-                        grid[5, indOfrow].Value = row[7];
+                        grid[4, indOfrow].Value = (bool)row[5];
+                        grid[5, indOfrow].Value = (bool)row[6];
+                        grid[6, indOfrow].Value = row[7];
                     }
                 }
             }
@@ -318,9 +319,9 @@ namespace TimeTable
                     grid[1, indOfrow].Value = row.LessonsRow.Title;
                     grid[2, indOfrow].Value = String.Format("{0} {1} {2}",
                     row.TeachersRow.LastName, row.TeachersRow.FirstName, row.TeachersRow.Patronymic);
-                    grid[3, indOfrow].Value = (bool)row[5];
-                    grid[4, indOfrow].Value = (bool)row[6];
-                    grid[5, indOfrow].Value = row[7];
+                    grid[4, indOfrow].Value = (bool)row[5];
+                    grid[5, indOfrow].Value = (bool)row[6];
+                    grid[6, indOfrow].Value = row[7];
                 }
             }
         }
