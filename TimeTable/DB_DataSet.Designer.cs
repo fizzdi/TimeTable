@@ -492,13 +492,9 @@ namespace TimeTable {
             
             private global::System.Data.DataColumn columnTeacherID;
             
-            private global::System.Data.DataColumn columnWeekOne;
-            
-            private global::System.Data.DataColumn columnWeekTwo;
-            
             private global::System.Data.DataColumn columnAudienceNumber;
             
-            private global::System.Data.DataColumn columnSubGroup;
+            private global::System.Data.DataColumn columnWeekSubGroup;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -575,22 +571,6 @@ namespace TimeTable {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn WeekOneColumn {
-                get {
-                    return this.columnWeekOne;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn WeekTwoColumn {
-                get {
-                    return this.columnWeekTwo;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn AudienceNumberColumn {
                 get {
                     return this.columnAudienceNumber;
@@ -599,9 +579,9 @@ namespace TimeTable {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn SubGroupColumn {
+            public global::System.Data.DataColumn WeekSubGroupColumn {
                 get {
-                    return this.columnSubGroup;
+                    return this.columnWeekSubGroup;
                 }
             }
             
@@ -642,7 +622,7 @@ namespace TimeTable {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ft_timetableRow Addft_timetableRow(int Day, int Number, int GroupNumber, LessonsRow parentLessonsRowByLessonsftt_Monday, TeachersRow parentTeachersRowByTeachersftt_Monday, bool WeekOne, bool WeekTwo, string AudienceNumber, int SubGroup) {
+            public ft_timetableRow Addft_timetableRow(int Day, int Number, int GroupNumber, LessonsRow parentLessonsRowByLessonsftt_Monday, TeachersRow parentTeachersRowByTeachersftt_Monday, string AudienceNumber, int WeekSubGroup) {
                 ft_timetableRow rowft_timetableRow = ((ft_timetableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Day,
@@ -650,10 +630,8 @@ namespace TimeTable {
                         GroupNumber,
                         null,
                         null,
-                        WeekOne,
-                        WeekTwo,
                         AudienceNumber,
-                        SubGroup};
+                        WeekSubGroup};
                 if ((parentLessonsRowByLessonsftt_Monday != null)) {
                     columnValuesArray[3] = parentLessonsRowByLessonsftt_Monday[0];
                 }
@@ -663,6 +641,16 @@ namespace TimeTable {
                 rowft_timetableRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowft_timetableRow);
                 return rowft_timetableRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ft_timetableRow FindByDayGroupNumberNumberWeekSubGroup(int Day, int GroupNumber, int Number, int WeekSubGroup) {
+                return ((ft_timetableRow)(this.Rows.Find(new object[] {
+                            Day,
+                            GroupNumber,
+                            Number,
+                            WeekSubGroup})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -687,10 +675,8 @@ namespace TimeTable {
                 this.columnGroupNumber = base.Columns["GroupNumber"];
                 this.columnLessonID = base.Columns["LessonID"];
                 this.columnTeacherID = base.Columns["TeacherID"];
-                this.columnWeekOne = base.Columns["WeekOne"];
-                this.columnWeekTwo = base.Columns["WeekTwo"];
                 this.columnAudienceNumber = base.Columns["AudienceNumber"];
-                this.columnSubGroup = base.Columns["SubGroup"];
+                this.columnWeekSubGroup = base.Columns["WeekSubGroup"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -706,19 +692,20 @@ namespace TimeTable {
                 base.Columns.Add(this.columnLessonID);
                 this.columnTeacherID = new global::System.Data.DataColumn("TeacherID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTeacherID);
-                this.columnWeekOne = new global::System.Data.DataColumn("WeekOne", typeof(bool), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnWeekOne);
-                this.columnWeekTwo = new global::System.Data.DataColumn("WeekTwo", typeof(bool), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnWeekTwo);
                 this.columnAudienceNumber = new global::System.Data.DataColumn("AudienceNumber", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAudienceNumber);
-                this.columnSubGroup = new global::System.Data.DataColumn("SubGroup", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSubGroup);
+                this.columnWeekSubGroup = new global::System.Data.DataColumn("WeekSubGroup", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWeekSubGroup);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnDay,
+                                this.columnGroupNumber,
+                                this.columnNumber,
+                                this.columnWeekSubGroup}, true));
                 this.columnDay.AllowDBNull = false;
                 this.columnNumber.AllowDBNull = false;
                 this.columnGroupNumber.AllowDBNull = false;
-                this.columnLessonID.AllowDBNull = false;
                 this.columnAudienceNumber.MaxLength = 255;
+                this.columnWeekSubGroup.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1153,13 +1140,9 @@ namespace TimeTable {
             
             private global::System.Data.DataColumn columnTeacherID;
             
-            private global::System.Data.DataColumn columnWeekOne;
-            
-            private global::System.Data.DataColumn columnWeekTwo;
-            
             private global::System.Data.DataColumn columnAudienceNumber;
             
-            private global::System.Data.DataColumn columnSubGroup;
+            private global::System.Data.DataColumn columnWeekSubGroup;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -1236,22 +1219,6 @@ namespace TimeTable {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn WeekOneColumn {
-                get {
-                    return this.columnWeekOne;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn WeekTwoColumn {
-                get {
-                    return this.columnWeekTwo;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn AudienceNumberColumn {
                 get {
                     return this.columnAudienceNumber;
@@ -1260,9 +1227,9 @@ namespace TimeTable {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn SubGroupColumn {
+            public global::System.Data.DataColumn WeekSubGroupColumn {
                 get {
-                    return this.columnSubGroup;
+                    return this.columnWeekSubGroup;
                 }
             }
             
@@ -1303,7 +1270,7 @@ namespace TimeTable {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public pt_timetableRow Addpt_timetableRow(int Day, int Number, int GroupNumber, LessonsRow parentLessonsRowByLessonspt_timetable, TeachersRow parentTeachersRowByTeacherspt_timetable, bool WeekOne, bool WeekTwo, string AudienceNumber, int SubGroup) {
+            public pt_timetableRow Addpt_timetableRow(int Day, int Number, int GroupNumber, LessonsRow parentLessonsRowByLessonspt_timetable, TeachersRow parentTeachersRowByTeacherspt_timetable, string AudienceNumber, int WeekSubGroup) {
                 pt_timetableRow rowpt_timetableRow = ((pt_timetableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Day,
@@ -1311,10 +1278,8 @@ namespace TimeTable {
                         GroupNumber,
                         null,
                         null,
-                        WeekOne,
-                        WeekTwo,
                         AudienceNumber,
-                        SubGroup};
+                        WeekSubGroup};
                 if ((parentLessonsRowByLessonspt_timetable != null)) {
                     columnValuesArray[3] = parentLessonsRowByLessonspt_timetable[0];
                 }
@@ -1328,12 +1293,12 @@ namespace TimeTable {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public pt_timetableRow FindByDayNumberGroupNumberLessonID(int Day, int Number, int GroupNumber, int LessonID) {
+            public pt_timetableRow FindByDayGroupNumberNumberWeekSubGroup(int Day, int GroupNumber, int Number, int WeekSubGroup) {
                 return ((pt_timetableRow)(this.Rows.Find(new object[] {
                             Day,
-                            Number,
                             GroupNumber,
-                            LessonID})));
+                            Number,
+                            WeekSubGroup})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1358,10 +1323,8 @@ namespace TimeTable {
                 this.columnGroupNumber = base.Columns["GroupNumber"];
                 this.columnLessonID = base.Columns["LessonID"];
                 this.columnTeacherID = base.Columns["TeacherID"];
-                this.columnWeekOne = base.Columns["WeekOne"];
-                this.columnWeekTwo = base.Columns["WeekTwo"];
                 this.columnAudienceNumber = base.Columns["AudienceNumber"];
-                this.columnSubGroup = base.Columns["SubGroup"];
+                this.columnWeekSubGroup = base.Columns["WeekSubGroup"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1377,25 +1340,20 @@ namespace TimeTable {
                 base.Columns.Add(this.columnLessonID);
                 this.columnTeacherID = new global::System.Data.DataColumn("TeacherID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTeacherID);
-                this.columnWeekOne = new global::System.Data.DataColumn("WeekOne", typeof(bool), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnWeekOne);
-                this.columnWeekTwo = new global::System.Data.DataColumn("WeekTwo", typeof(bool), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnWeekTwo);
                 this.columnAudienceNumber = new global::System.Data.DataColumn("AudienceNumber", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAudienceNumber);
-                this.columnSubGroup = new global::System.Data.DataColumn("SubGroup", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSubGroup);
+                this.columnWeekSubGroup = new global::System.Data.DataColumn("WeekSubGroup", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWeekSubGroup);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnDay,
-                                this.columnNumber,
                                 this.columnGroupNumber,
-                                this.columnLessonID}, true));
+                                this.columnNumber,
+                                this.columnWeekSubGroup}, true));
                 this.columnDay.AllowDBNull = false;
                 this.columnNumber.AllowDBNull = false;
                 this.columnGroupNumber.AllowDBNull = false;
-                this.columnLessonID.AllowDBNull = false;
                 this.columnAudienceNumber.MaxLength = 255;
-                this.columnSubGroup.AllowDBNull = false;
+                this.columnWeekSubGroup.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2373,7 +2331,12 @@ namespace TimeTable {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public int LessonID {
                 get {
-                    return ((int)(this[this.tableft_timetable.LessonIDColumn]));
+                    try {
+                        return ((int)(this[this.tableft_timetable.LessonIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LessonID\' in table \'ft_timetable\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableft_timetable.LessonIDColumn] = value;
@@ -2398,38 +2361,6 @@ namespace TimeTable {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool WeekOne {
-                get {
-                    try {
-                        return ((bool)(this[this.tableft_timetable.WeekOneColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'WeekOne\' in table \'ft_timetable\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableft_timetable.WeekOneColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool WeekTwo {
-                get {
-                    try {
-                        return ((bool)(this[this.tableft_timetable.WeekTwoColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'WeekTwo\' in table \'ft_timetable\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableft_timetable.WeekTwoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string AudienceNumber {
                 get {
                     try {
@@ -2446,17 +2377,12 @@ namespace TimeTable {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int SubGroup {
+            public int WeekSubGroup {
                 get {
-                    try {
-                        return ((int)(this[this.tableft_timetable.SubGroupColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'SubGroup\' in table \'ft_timetable\' is DBNull.", e);
-                    }
+                    return ((int)(this[this.tableft_timetable.WeekSubGroupColumn]));
                 }
                 set {
-                    this[this.tableft_timetable.SubGroupColumn] = value;
+                    this[this.tableft_timetable.WeekSubGroupColumn] = value;
                 }
             }
             
@@ -2484,6 +2410,18 @@ namespace TimeTable {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsLessonIDNull() {
+                return this.IsNull(this.tableft_timetable.LessonIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetLessonIDNull() {
+                this[this.tableft_timetable.LessonIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsTeacherIDNull() {
                 return this.IsNull(this.tableft_timetable.TeacherIDColumn);
             }
@@ -2496,30 +2434,6 @@ namespace TimeTable {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsWeekOneNull() {
-                return this.IsNull(this.tableft_timetable.WeekOneColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetWeekOneNull() {
-                this[this.tableft_timetable.WeekOneColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsWeekTwoNull() {
-                return this.IsNull(this.tableft_timetable.WeekTwoColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetWeekTwoNull() {
-                this[this.tableft_timetable.WeekTwoColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsAudienceNumberNull() {
                 return this.IsNull(this.tableft_timetable.AudienceNumberColumn);
             }
@@ -2528,18 +2442,6 @@ namespace TimeTable {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetAudienceNumberNull() {
                 this[this.tableft_timetable.AudienceNumberColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsSubGroupNull() {
-                return this.IsNull(this.tableft_timetable.SubGroupColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetSubGroupNull() {
-                this[this.tableft_timetable.SubGroupColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -2698,7 +2600,12 @@ namespace TimeTable {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public int LessonID {
                 get {
-                    return ((int)(this[this.tablept_timetable.LessonIDColumn]));
+                    try {
+                        return ((int)(this[this.tablept_timetable.LessonIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LessonID\' in table \'pt_timetable\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tablept_timetable.LessonIDColumn] = value;
@@ -2723,38 +2630,6 @@ namespace TimeTable {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool WeekOne {
-                get {
-                    try {
-                        return ((bool)(this[this.tablept_timetable.WeekOneColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'WeekOne\' in table \'pt_timetable\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tablept_timetable.WeekOneColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool WeekTwo {
-                get {
-                    try {
-                        return ((bool)(this[this.tablept_timetable.WeekTwoColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'WeekTwo\' in table \'pt_timetable\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tablept_timetable.WeekTwoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string AudienceNumber {
                 get {
                     try {
@@ -2771,12 +2646,12 @@ namespace TimeTable {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int SubGroup {
+            public int WeekSubGroup {
                 get {
-                    return ((int)(this[this.tablept_timetable.SubGroupColumn]));
+                    return ((int)(this[this.tablept_timetable.WeekSubGroupColumn]));
                 }
                 set {
-                    this[this.tablept_timetable.SubGroupColumn] = value;
+                    this[this.tablept_timetable.WeekSubGroupColumn] = value;
                 }
             }
             
@@ -2804,6 +2679,18 @@ namespace TimeTable {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsLessonIDNull() {
+                return this.IsNull(this.tablept_timetable.LessonIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetLessonIDNull() {
+                this[this.tablept_timetable.LessonIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsTeacherIDNull() {
                 return this.IsNull(this.tablept_timetable.TeacherIDColumn);
             }
@@ -2812,30 +2699,6 @@ namespace TimeTable {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetTeacherIDNull() {
                 this[this.tablept_timetable.TeacherIDColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsWeekOneNull() {
-                return this.IsNull(this.tablept_timetable.WeekOneColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetWeekOneNull() {
-                this[this.tablept_timetable.WeekOneColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsWeekTwoNull() {
-                return this.IsNull(this.tablept_timetable.WeekTwoColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetWeekTwoNull() {
-                this[this.tablept_timetable.WeekTwoColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3403,64 +3266,54 @@ namespace TimeTable.ds_dbTableAdapters {
             tableMapping.ColumnMappings.Add("GroupNumber", "GroupNumber");
             tableMapping.ColumnMappings.Add("LessonID", "LessonID");
             tableMapping.ColumnMappings.Add("TeacherID", "TeacherID");
-            tableMapping.ColumnMappings.Add("WeekOne", "WeekOne");
-            tableMapping.ColumnMappings.Add("WeekTwo", "WeekTwo");
             tableMapping.ColumnMappings.Add("AudienceNumber", "AudienceNumber");
-            tableMapping.ColumnMappings.Add("SubGroup", "SubGroup");
+            tableMapping.ColumnMappings.Add("WeekSubGroup", "WeekSubGroup");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `ft_timetable` WHERE ((`Day` = ?) AND (`Number` = ?) AND (`GroupNumber` = ?) AND (`LessonID` = ?) AND ((? = 1 AND `TeacherID` IS NULL) OR (`TeacherID` = ?)) AND ((? = 1 AND `WeekOne` IS NULL) OR (`WeekOne` = ?)) AND ((? = 1 AND `WeekTwo` IS NULL) OR (`WeekTwo` = ?)) AND ((? = 1 AND `AudienceNumber` IS NULL) OR (`AudienceNumber` = ?)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `ft_timetable` WHERE ((`Day` = ?) AND (`Number` = ?) AND (`GroupNumber` = ?) AND ((? = 1 AND `LessonID` IS NULL) OR (`LessonID` = ?)) AND ((? = 1 AND `TeacherID` IS NULL) OR (`TeacherID` = ?)) AND (`WeekSubGroup` = ?) AND ((? = 1 AND `AudienceNumber` IS NULL) OR (`AudienceNumber` = ?)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Day", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Day", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Number", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Number", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_GroupNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "GroupNumber", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_LessonID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LessonID", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_LessonID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LessonID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_TeacherID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TeacherID", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_TeacherID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TeacherID", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_WeekOne", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekOne", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_WeekOne", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekOne", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_WeekTwo", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekTwo", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_WeekTwo", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekTwo", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_WeekSubGroup", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekSubGroup", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_AudienceNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "AudienceNumber", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_AudienceNumber", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "AudienceNumber", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = "INSERT INTO `ft_timetable` (`Day`, `Number`, `GroupNumber`, `LessonID`, `TeacherI" +
-                "D`, `WeekOne`, `WeekTwo`, `AudienceNumber`, `SubGroup`) VALUES (?, ?, ?, ?, ?, ?" +
-                ", ?, ?, ?)";
+                "D`, `WeekSubGroup`, `AudienceNumber`) VALUES (?, ?, ?, ?, ?, ?, ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Day", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Day", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Number", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Number", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("GroupNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "GroupNumber", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("LessonID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LessonID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TeacherID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TeacherID", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("WeekOne", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekOne", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("WeekTwo", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekTwo", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("WeekSubGroup", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekSubGroup", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("AudienceNumber", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "AudienceNumber", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("SubGroup", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "SubGroup", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `ft_timetable` SET `Day` = ?, `Number` = ?, `GroupNumber` = ?, `LessonID` = ?, `TeacherID` = ?, `WeekOne` = ?, `WeekTwo` = ?, `AudienceNumber` = ? WHERE ((`Day` = ?) AND (`Number` = ?) AND (`GroupNumber` = ?) AND (`LessonID` = ?) AND ((? = 1 AND `TeacherID` IS NULL) OR (`TeacherID` = ?)) AND ((? = 1 AND `WeekOne` IS NULL) OR (`WeekOne` = ?)) AND ((? = 1 AND `WeekTwo` IS NULL) OR (`WeekTwo` = ?)) AND ((? = 1 AND `AudienceNumber` IS NULL) OR (`AudienceNumber` = ?)))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE `ft_timetable` SET `Day` = ?, `Number` = ?, `GroupNumber` = ?, `LessonID` = ?, `TeacherID` = ?, `WeekSubGroup` = ?, `AudienceNumber` = ? WHERE ((`Day` = ?) AND (`Number` = ?) AND (`GroupNumber` = ?) AND ((? = 1 AND `LessonID` IS NULL) OR (`LessonID` = ?)) AND ((? = 1 AND `TeacherID` IS NULL) OR (`TeacherID` = ?)) AND (`WeekSubGroup` = ?) AND ((? = 1 AND `AudienceNumber` IS NULL) OR (`AudienceNumber` = ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Day", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Day", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Number", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Number", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("GroupNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "GroupNumber", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("LessonID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LessonID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TeacherID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TeacherID", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("WeekOne", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekOne", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("WeekTwo", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekTwo", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("WeekSubGroup", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekSubGroup", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("AudienceNumber", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "AudienceNumber", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Day", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Day", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Number", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Number", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_GroupNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "GroupNumber", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_LessonID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LessonID", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_LessonID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LessonID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_TeacherID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TeacherID", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_TeacherID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TeacherID", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_WeekOne", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekOne", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_WeekOne", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekOne", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_WeekTwo", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekTwo", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_WeekTwo", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekTwo", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_WeekSubGroup", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekSubGroup", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_AudienceNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "AudienceNumber", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_AudienceNumber", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "AudienceNumber", global::System.Data.DataRowVersion.Original, false, null));
         }
@@ -3478,8 +3331,7 @@ namespace TimeTable.ds_dbTableAdapters {
             this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT [Day], [Number], GroupNumber, LessonID, TeacherID, WeekOne, WeekTwo, Audie" +
-                "nceNumber, SubGroup FROM ft_timetable";
+            this._commandCollection[0].CommandText = "SELECT        ft_timetable.*\r\nFROM            ft_timetable";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -3540,7 +3392,7 @@ namespace TimeTable.ds_dbTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(global::System.Nullable<int> Original_Day, global::System.Nullable<int> Original_Number, global::System.Nullable<int> Original_GroupNumber, global::System.Nullable<int> Original_LessonID, global::System.Nullable<int> Original_TeacherID, bool Original_WeekOne, bool Original_WeekTwo, string Original_AudienceNumber) {
+        public virtual int Delete(global::System.Nullable<int> Original_Day, global::System.Nullable<int> Original_Number, global::System.Nullable<int> Original_GroupNumber, global::System.Nullable<int> Original_LessonID, global::System.Nullable<int> Original_TeacherID, global::System.Nullable<int> Original_WeekSubGroup, string Original_AudienceNumber) {
             if ((Original_Day.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Day.Value));
             }
@@ -3560,30 +3412,34 @@ namespace TimeTable.ds_dbTableAdapters {
                 this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             if ((Original_LessonID.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((int)(Original_LessonID.Value));
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_LessonID.Value));
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[3].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             if ((Original_TeacherID.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((int)(Original_TeacherID.Value));
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[6].Value = ((int)(Original_TeacherID.Value));
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[5].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
-            this.Adapter.DeleteCommand.Parameters[6].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[7].Value = ((bool)(Original_WeekOne));
-            this.Adapter.DeleteCommand.Parameters[8].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[9].Value = ((bool)(Original_WeekTwo));
+            if ((Original_WeekSubGroup.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[7].Value = ((int)(Original_WeekSubGroup.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[7].Value = global::System.DBNull.Value;
+            }
             if ((Original_AudienceNumber == null)) {
-                this.Adapter.DeleteCommand.Parameters[10].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[11].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[8].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[10].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[11].Value = ((string)(Original_AudienceNumber));
+                this.Adapter.DeleteCommand.Parameters[8].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[9].Value = ((string)(Original_AudienceNumber));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -3605,7 +3461,7 @@ namespace TimeTable.ds_dbTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(global::System.Nullable<int> Day, global::System.Nullable<int> Number, global::System.Nullable<int> GroupNumber, global::System.Nullable<int> LessonID, global::System.Nullable<int> TeacherID, bool WeekOne, bool WeekTwo, string AudienceNumber, global::System.Nullable<int> SubGroup) {
+        public virtual int Insert(global::System.Nullable<int> Day, global::System.Nullable<int> Number, global::System.Nullable<int> GroupNumber, global::System.Nullable<int> LessonID, global::System.Nullable<int> TeacherID, global::System.Nullable<int> WeekSubGroup, string AudienceNumber) {
             if ((Day.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((int)(Day.Value));
             }
@@ -3636,19 +3492,17 @@ namespace TimeTable.ds_dbTableAdapters {
             else {
                 this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
-            this.Adapter.InsertCommand.Parameters[5].Value = ((bool)(WeekOne));
-            this.Adapter.InsertCommand.Parameters[6].Value = ((bool)(WeekTwo));
+            if ((WeekSubGroup.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((int)(WeekSubGroup.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
             if ((AudienceNumber == null)) {
-                this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[7].Value = ((string)(AudienceNumber));
-            }
-            if ((SubGroup.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[8].Value = ((int)(SubGroup.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[8].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[6].Value = ((string)(AudienceNumber));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -3670,23 +3524,7 @@ namespace TimeTable.ds_dbTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(
-                    global::System.Nullable<int> Day, 
-                    global::System.Nullable<int> Number, 
-                    global::System.Nullable<int> GroupNumber, 
-                    global::System.Nullable<int> LessonID, 
-                    global::System.Nullable<int> TeacherID, 
-                    bool WeekOne, 
-                    bool WeekTwo, 
-                    string AudienceNumber, 
-                    global::System.Nullable<int> Original_Day, 
-                    global::System.Nullable<int> Original_Number, 
-                    global::System.Nullable<int> Original_GroupNumber, 
-                    global::System.Nullable<int> Original_LessonID, 
-                    global::System.Nullable<int> Original_TeacherID, 
-                    bool Original_WeekOne, 
-                    bool Original_WeekTwo, 
-                    string Original_AudienceNumber) {
+        public virtual int Update(global::System.Nullable<int> Day, global::System.Nullable<int> Number, global::System.Nullable<int> GroupNumber, global::System.Nullable<int> LessonID, global::System.Nullable<int> TeacherID, global::System.Nullable<int> WeekSubGroup, string AudienceNumber, global::System.Nullable<int> Original_Day, global::System.Nullable<int> Original_Number, global::System.Nullable<int> Original_GroupNumber, global::System.Nullable<int> Original_LessonID, global::System.Nullable<int> Original_TeacherID, global::System.Nullable<int> Original_WeekSubGroup, string Original_AudienceNumber) {
             if ((Day.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(Day.Value));
             }
@@ -3717,36 +3555,42 @@ namespace TimeTable.ds_dbTableAdapters {
             else {
                 this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((bool)(WeekOne));
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((bool)(WeekTwo));
-            if ((AudienceNumber == null)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
+            if ((WeekSubGroup.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(WeekSubGroup.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(AudienceNumber));
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            if ((AudienceNumber == null)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(AudienceNumber));
             }
             if ((Original_Day.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_Day.Value));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_Day.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
+            }
+            if ((Original_Number.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_Number.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
             }
-            if ((Original_Number.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_Number.Value));
+            if ((Original_GroupNumber.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_GroupNumber.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
-            if ((Original_GroupNumber.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_GroupNumber.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
-            }
             if ((Original_LessonID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(0));
                 this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Original_LessonID.Value));
             }
             else {
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
             }
             if ((Original_TeacherID.HasValue == true)) {
@@ -3757,17 +3601,19 @@ namespace TimeTable.ds_dbTableAdapters {
                 this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[15].Value = ((bool)(Original_WeekOne));
-            this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[17].Value = ((bool)(Original_WeekTwo));
-            if ((Original_AudienceNumber == null)) {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[19].Value = global::System.DBNull.Value;
+            if ((Original_WeekSubGroup.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((int)(Original_WeekSubGroup.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((string)(Original_AudienceNumber));
+                this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
+            }
+            if ((Original_AudienceNumber == null)) {
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[16].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((string)(Original_AudienceNumber));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -3783,6 +3629,14 @@ namespace TimeTable.ds_dbTableAdapters {
                     this.Adapter.UpdateCommand.Connection.Close();
                 }
             }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(global::System.Nullable<int> LessonID, global::System.Nullable<int> TeacherID, string AudienceNumber, global::System.Nullable<int> Original_Day, global::System.Nullable<int> Original_Number, global::System.Nullable<int> Original_GroupNumber, global::System.Nullable<int> Original_LessonID, global::System.Nullable<int> Original_TeacherID, global::System.Nullable<int> Original_WeekSubGroup, string Original_AudienceNumber) {
+            return this.Update(Original_Day, Original_Number, Original_GroupNumber, LessonID, TeacherID, Original_WeekSubGroup, AudienceNumber, Original_Day, Original_Number, Original_GroupNumber, Original_LessonID, Original_TeacherID, Original_WeekSubGroup, Original_AudienceNumber);
         }
     }
     
@@ -4261,69 +4115,56 @@ namespace TimeTable.ds_dbTableAdapters {
             tableMapping.ColumnMappings.Add("GroupNumber", "GroupNumber");
             tableMapping.ColumnMappings.Add("LessonID", "LessonID");
             tableMapping.ColumnMappings.Add("TeacherID", "TeacherID");
-            tableMapping.ColumnMappings.Add("WeekOne", "WeekOne");
-            tableMapping.ColumnMappings.Add("WeekTwo", "WeekTwo");
             tableMapping.ColumnMappings.Add("AudienceNumber", "AudienceNumber");
-            tableMapping.ColumnMappings.Add("SubGroup", "SubGroup");
+            tableMapping.ColumnMappings.Add("WeekSubGroup", "WeekSubGroup");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `pt_timetable` WHERE ((`Day` = ?) AND (`Number` = ?) AND (`GroupNumber` = ?) AND (`LessonID` = ?) AND ((? = 1 AND `TeacherID` IS NULL) OR (`TeacherID` = ?)) AND ((? = 1 AND `WeekOne` IS NULL) OR (`WeekOne` = ?)) AND ((? = 1 AND `WeekTwo` IS NULL) OR (`WeekTwo` = ?)) AND ((? = 1 AND `AudienceNumber` IS NULL) OR (`AudienceNumber` = ?)) AND (`SubGroup` = ?))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `pt_timetable` WHERE ((`Day` = ?) AND (`Number` = ?) AND (`GroupNumber` = ?) AND ((? = 1 AND `LessonID` IS NULL) OR (`LessonID` = ?)) AND ((? = 1 AND `TeacherID` IS NULL) OR (`TeacherID` = ?)) AND (`WeekSubGroup` = ?) AND ((? = 1 AND `AudienceNumber` IS NULL) OR (`AudienceNumber` = ?)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Day", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Day", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Number", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Number", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_GroupNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "GroupNumber", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_LessonID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LessonID", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_LessonID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LessonID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_TeacherID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TeacherID", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_TeacherID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TeacherID", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_WeekOne", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekOne", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_WeekOne", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekOne", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_WeekTwo", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekTwo", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_WeekTwo", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekTwo", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_WeekSubGroup", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekSubGroup", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_AudienceNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "AudienceNumber", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_AudienceNumber", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "AudienceNumber", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_SubGroup", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "SubGroup", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = "INSERT INTO `pt_timetable` (`Day`, `Number`, `GroupNumber`, `LessonID`, `TeacherI" +
-                "D`, `WeekOne`, `WeekTwo`, `AudienceNumber`, `SubGroup`) VALUES (?, ?, ?, ?, ?, ?" +
-                ", ?, ?, ?)";
+                "D`, `WeekSubGroup`, `AudienceNumber`) VALUES (?, ?, ?, ?, ?, ?, ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Day", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Day", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Number", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Number", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("GroupNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "GroupNumber", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("LessonID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LessonID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TeacherID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TeacherID", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("WeekOne", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekOne", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("WeekTwo", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekTwo", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("WeekSubGroup", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekSubGroup", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("AudienceNumber", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "AudienceNumber", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("SubGroup", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "SubGroup", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `pt_timetable` SET `Day` = ?, `Number` = ?, `GroupNumber` = ?, `LessonID` = ?, `TeacherID` = ?, `WeekOne` = ?, `WeekTwo` = ?, `AudienceNumber` = ?, `SubGroup` = ? WHERE ((`Day` = ?) AND (`Number` = ?) AND (`GroupNumber` = ?) AND (`LessonID` = ?) AND ((? = 1 AND `TeacherID` IS NULL) OR (`TeacherID` = ?)) AND ((? = 1 AND `WeekOne` IS NULL) OR (`WeekOne` = ?)) AND ((? = 1 AND `WeekTwo` IS NULL) OR (`WeekTwo` = ?)) AND ((? = 1 AND `AudienceNumber` IS NULL) OR (`AudienceNumber` = ?)) AND (`SubGroup` = ?))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE `pt_timetable` SET `Day` = ?, `Number` = ?, `GroupNumber` = ?, `LessonID` = ?, `TeacherID` = ?, `WeekSubGroup` = ?, `AudienceNumber` = ? WHERE ((`Day` = ?) AND (`Number` = ?) AND (`GroupNumber` = ?) AND ((? = 1 AND `LessonID` IS NULL) OR (`LessonID` = ?)) AND ((? = 1 AND `TeacherID` IS NULL) OR (`TeacherID` = ?)) AND (`WeekSubGroup` = ?) AND ((? = 1 AND `AudienceNumber` IS NULL) OR (`AudienceNumber` = ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Day", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Day", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Number", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Number", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("GroupNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "GroupNumber", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("LessonID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LessonID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TeacherID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TeacherID", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("WeekOne", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekOne", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("WeekTwo", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekTwo", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("WeekSubGroup", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekSubGroup", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("AudienceNumber", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "AudienceNumber", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("SubGroup", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "SubGroup", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Day", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Day", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Number", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Number", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_GroupNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "GroupNumber", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_LessonID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LessonID", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_LessonID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LessonID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_TeacherID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TeacherID", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_TeacherID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TeacherID", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_WeekOne", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekOne", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_WeekOne", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekOne", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_WeekTwo", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekTwo", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_WeekTwo", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekTwo", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_WeekSubGroup", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "WeekSubGroup", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_AudienceNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "AudienceNumber", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_AudienceNumber", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "AudienceNumber", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_SubGroup", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "SubGroup", global::System.Data.DataRowVersion.Original, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4339,8 +4180,7 @@ namespace TimeTable.ds_dbTableAdapters {
             this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT [Day], [Number], GroupNumber, LessonID, TeacherID, WeekOne, WeekTwo, Audie" +
-                "nceNumber, SubGroup FROM pt_timetable";
+            this._commandCollection[0].CommandText = "SELECT        pt_timetable.*\r\nFROM            pt_timetable";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -4401,7 +4241,7 @@ namespace TimeTable.ds_dbTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(global::System.Nullable<int> Original_Day, global::System.Nullable<int> Original_Number, global::System.Nullable<int> Original_GroupNumber, global::System.Nullable<int> Original_LessonID, global::System.Nullable<int> Original_TeacherID, bool Original_WeekOne, bool Original_WeekTwo, string Original_AudienceNumber, global::System.Nullable<int> Original_SubGroup) {
+        public virtual int Delete(global::System.Nullable<int> Original_Day, global::System.Nullable<int> Original_Number, global::System.Nullable<int> Original_GroupNumber, global::System.Nullable<int> Original_LessonID, global::System.Nullable<int> Original_TeacherID, global::System.Nullable<int> Original_WeekSubGroup, string Original_AudienceNumber) {
             if ((Original_Day.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Day.Value));
             }
@@ -4421,36 +4261,34 @@ namespace TimeTable.ds_dbTableAdapters {
                 this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             if ((Original_LessonID.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((int)(Original_LessonID.Value));
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_LessonID.Value));
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[3].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             if ((Original_TeacherID.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((int)(Original_TeacherID.Value));
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[6].Value = ((int)(Original_TeacherID.Value));
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[5].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
-            this.Adapter.DeleteCommand.Parameters[6].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[7].Value = ((bool)(Original_WeekOne));
-            this.Adapter.DeleteCommand.Parameters[8].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[9].Value = ((bool)(Original_WeekTwo));
+            if ((Original_WeekSubGroup.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[7].Value = ((int)(Original_WeekSubGroup.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[7].Value = global::System.DBNull.Value;
+            }
             if ((Original_AudienceNumber == null)) {
-                this.Adapter.DeleteCommand.Parameters[10].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[11].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[8].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[10].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[11].Value = ((string)(Original_AudienceNumber));
-            }
-            if ((Original_SubGroup.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[12].Value = ((int)(Original_SubGroup.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[12].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[8].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[9].Value = ((string)(Original_AudienceNumber));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -4472,7 +4310,7 @@ namespace TimeTable.ds_dbTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(global::System.Nullable<int> Day, global::System.Nullable<int> Number, global::System.Nullable<int> GroupNumber, global::System.Nullable<int> LessonID, global::System.Nullable<int> TeacherID, bool WeekOne, bool WeekTwo, string AudienceNumber, global::System.Nullable<int> SubGroup) {
+        public virtual int Insert(global::System.Nullable<int> Day, global::System.Nullable<int> Number, global::System.Nullable<int> GroupNumber, global::System.Nullable<int> LessonID, global::System.Nullable<int> TeacherID, global::System.Nullable<int> WeekSubGroup, string AudienceNumber) {
             if ((Day.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((int)(Day.Value));
             }
@@ -4503,19 +4341,17 @@ namespace TimeTable.ds_dbTableAdapters {
             else {
                 this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
-            this.Adapter.InsertCommand.Parameters[5].Value = ((bool)(WeekOne));
-            this.Adapter.InsertCommand.Parameters[6].Value = ((bool)(WeekTwo));
+            if ((WeekSubGroup.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((int)(WeekSubGroup.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
             if ((AudienceNumber == null)) {
-                this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[7].Value = ((string)(AudienceNumber));
-            }
-            if ((SubGroup.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[8].Value = ((int)(SubGroup.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[8].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[6].Value = ((string)(AudienceNumber));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -4537,25 +4373,7 @@ namespace TimeTable.ds_dbTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(
-                    global::System.Nullable<int> Day, 
-                    global::System.Nullable<int> Number, 
-                    global::System.Nullable<int> GroupNumber, 
-                    global::System.Nullable<int> LessonID, 
-                    global::System.Nullable<int> TeacherID, 
-                    bool WeekOne, 
-                    bool WeekTwo, 
-                    string AudienceNumber, 
-                    global::System.Nullable<int> SubGroup, 
-                    global::System.Nullable<int> Original_Day, 
-                    global::System.Nullable<int> Original_Number, 
-                    global::System.Nullable<int> Original_GroupNumber, 
-                    global::System.Nullable<int> Original_LessonID, 
-                    global::System.Nullable<int> Original_TeacherID, 
-                    bool Original_WeekOne, 
-                    bool Original_WeekTwo, 
-                    string Original_AudienceNumber, 
-                    global::System.Nullable<int> Original_SubGroup) {
+        public virtual int Update(global::System.Nullable<int> Day, global::System.Nullable<int> Number, global::System.Nullable<int> GroupNumber, global::System.Nullable<int> LessonID, global::System.Nullable<int> TeacherID, global::System.Nullable<int> WeekSubGroup, string AudienceNumber, global::System.Nullable<int> Original_Day, global::System.Nullable<int> Original_Number, global::System.Nullable<int> Original_GroupNumber, global::System.Nullable<int> Original_LessonID, global::System.Nullable<int> Original_TeacherID, global::System.Nullable<int> Original_WeekSubGroup, string Original_AudienceNumber) {
             if ((Day.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(Day.Value));
             }
@@ -4586,69 +4404,65 @@ namespace TimeTable.ds_dbTableAdapters {
             else {
                 this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((bool)(WeekOne));
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((bool)(WeekTwo));
-            if ((AudienceNumber == null)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
+            if ((WeekSubGroup.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(WeekSubGroup.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(AudienceNumber));
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
-            if ((SubGroup.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(SubGroup.Value));
+            if ((AudienceNumber == null)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(AudienceNumber));
+            }
+            if ((Original_Day.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_Day.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
+            }
+            if ((Original_Number.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_Number.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
             }
-            if ((Original_Day.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_Day.Value));
+            if ((Original_GroupNumber.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_GroupNumber.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
-            if ((Original_Number.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_Number.Value));
+            if ((Original_LessonID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Original_LessonID.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
-            }
-            if ((Original_GroupNumber.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Original_GroupNumber.Value));
-            }
-            else {
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
             }
-            if ((Original_LessonID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(Original_LessonID.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
-            }
             if ((Original_TeacherID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((int)(Original_TeacherID.Value));
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(Original_TeacherID.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
+            }
+            if ((Original_WeekSubGroup.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((int)(Original_WeekSubGroup.Value));
+            }
+            else {
                 this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[16].Value = ((bool)(Original_WeekOne));
-            this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[18].Value = ((bool)(Original_WeekTwo));
             if ((Original_AudienceNumber == null)) {
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[20].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[16].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[20].Value = ((string)(Original_AudienceNumber));
-            }
-            if ((Original_SubGroup.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[21].Value = ((int)(Original_SubGroup.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[21].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((string)(Original_AudienceNumber));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -4670,8 +4484,8 @@ namespace TimeTable.ds_dbTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(global::System.Nullable<int> TeacherID, bool WeekOne, bool WeekTwo, string AudienceNumber, global::System.Nullable<int> SubGroup, global::System.Nullable<int> Original_Day, global::System.Nullable<int> Original_Number, global::System.Nullable<int> Original_GroupNumber, global::System.Nullable<int> Original_LessonID, global::System.Nullable<int> Original_TeacherID, bool Original_WeekOne, bool Original_WeekTwo, string Original_AudienceNumber, global::System.Nullable<int> Original_SubGroup) {
-            return this.Update(Original_Day, Original_Number, Original_GroupNumber, Original_LessonID, TeacherID, WeekOne, WeekTwo, AudienceNumber, SubGroup, Original_Day, Original_Number, Original_GroupNumber, Original_LessonID, Original_TeacherID, Original_WeekOne, Original_WeekTwo, Original_AudienceNumber, Original_SubGroup);
+        public virtual int Update(global::System.Nullable<int> LessonID, global::System.Nullable<int> TeacherID, string AudienceNumber, global::System.Nullable<int> Original_Day, global::System.Nullable<int> Original_Number, global::System.Nullable<int> Original_GroupNumber, global::System.Nullable<int> Original_LessonID, global::System.Nullable<int> Original_TeacherID, global::System.Nullable<int> Original_WeekSubGroup, string Original_AudienceNumber) {
+            return this.Update(Original_Day, Original_Number, Original_GroupNumber, LessonID, TeacherID, Original_WeekSubGroup, AudienceNumber, Original_Day, Original_Number, Original_GroupNumber, Original_LessonID, Original_TeacherID, Original_WeekSubGroup, Original_AudienceNumber);
         }
     }
     
