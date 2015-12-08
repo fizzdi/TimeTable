@@ -2,7 +2,6 @@
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using Excel = Microsoft.Office.Interop.Excel;
 
 namespace TimeTable
 {
@@ -82,7 +81,13 @@ namespace TimeTable
 
         private void b_addgroup_Click(object sender, EventArgs e)
         {
-            cb_groups.SelectedIndex = cb_groups.Items.Add(cb_groups.Text);
+            int gr;
+            if (!int.TryParse(cb_groups.Text, out gr))
+            {
+                MessageBox.Show("Введите номер группы!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                cb_groups.Text = "";
+            }
+            else cb_groups.SelectedIndex = cb_groups.Items.Add(cb_groups.Text);
             //TimeTableTools.fillGridOfDay_Group(cb_days.SelectedIndex + 1, int.Parse(cb_groups.Text), ref dgv_maintable, ref ds_timetable);
 
         }
@@ -90,6 +95,7 @@ namespace TimeTable
         private void form_main_FormClosing(object sender, FormClosingEventArgs e)
         {
             tam_db.UpdateAll(ds_timetable);
+            Tools.ToExcel.ExcelClose();
         }
 
         private void ms_about_Click(object sender, EventArgs e)
@@ -99,9 +105,7 @@ namespace TimeTable
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Excel.Application excelapp;
-            excelapp = new Excel.Application();
-            excelapp.Visible = true;
+            Tools.ToExcel.CreateBooks(ref ds_timetable);
         }
 
         public void fillGridOfDay_Group(int dayNumber, int groupNumber, int subgroup, bool partTime = false)
@@ -110,23 +114,14 @@ namespace TimeTable
             const int lessons = 8;
             int header_span = subgroup == 1 ? 1 : 2;
             grid.Rows.Clear();
-            grid.ClipboardMode = SourceGrid.ClipboardMode.All;
+            grid.ClipboardMode = SourceGrid.ClipboardMode.Delete | SourceGrid.ClipboardMode.Copy;
             grid.SelectionMode = SourceGrid.GridSelectionMode.Cell;
             grid.Selection.EnableMultiSelection = false;
-            
+
 
             //Editors
-            SourceGrid.Cells.Editors.TextBox lessonsEditor = new SourceGrid.Cells.Editors.TextBox(typeof(string));
-            {
-                lessonsEditor.Control.AutoCompleteMode = AutoCompleteMode.Suggest;
-                lessonsEditor.Control.AutoCompleteSource = AutoCompleteSource.CustomSource;
-                AutoCompleteStringCollection source = new AutoCompleteStringCollection();
-                var lessons_db = from row in ds_timetable.Lessons
-                                 select row.Title;
-                source.AddRange(lessons_db.ToArray());
-                lessonsEditor.Control.AutoCompleteCustomSource = source;
-            }
-            SourceGrid.Cells.Editors.TextBox teacherEditor = TimeTableTools.getTeachersEditor(ref ds_timetable);
+            SourceGrid.Cells.Editors.TextBox lessonsEditor = TimeTable.Tools.Methods.getLessonsEditor(ref ds_timetable);
+            SourceGrid.Cells.Editors.TextBox teacherEditor = TimeTable.Tools.Methods.getTeachersEditor(ref ds_timetable);
 
             //Views
             SourceGrid.Cells.Views.Cell viewEvenLessons = new SourceGrid.Cells.Views.Cell();
@@ -192,15 +187,15 @@ namespace TimeTable
                     if ((i - header_span) % 3 == 0)
                     {
                         grid[i, j].Editor = lessonsEditor;
-                        grid[i, j].AddController(new LessonCellContoller(ref cb_days, ref cb_groups, ref ds_timetable));
+                        grid[i, j].AddController(new Tools.LessonCellContoller(ref cb_days, ref cb_groups, ref ds_timetable));
                     }
                     //Teacher row
                     else if ((i - header_span) % 3 == 1)
                     {
-                        grid[i, j].AddController(new TeacherCellContoller(ref cb_days, ref cb_groups, ref ds_timetable));
+                        grid[i, j].AddController(new Tools.TeacherCellContoller(ref cb_days, ref cb_groups, ref ds_timetable));
                     }
                     else //Audience row
-                        grid[i, j].AddController(new AudienceCellContoller(ref cb_days, ref cb_groups, ref ds_timetable));
+                        grid[i, j].AddController(new Tools.AudienceCellContoller(ref cb_days, ref cb_groups, ref ds_timetable));
 
                 }
             }
@@ -290,5 +285,11 @@ namespace TimeTable
 
         } // end fillGridOfDay_Group
 
+        private void ms_settings_Click(object sender, EventArgs e)
+        {
+            SettingsForm sfrm = new SettingsForm();
+            sfrm.Owner = this;
+            sfrm.ShowDialog();
+        }
     }
 }

@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SourceGrid;
 
-namespace TimeTable
+namespace TimeTable.Tools
 {
-    public class TimeTableTools
+    public static class Methods
     {
         public static SourceGrid.Cells.Editors.TextBox getTeachersEditor(ref ds_db db)
         {
@@ -24,11 +24,60 @@ namespace TimeTable
             return teachersEditor;
         }
 
+        public static SourceGrid.Cells.Editors.TextBox getLessonsEditor(ref ds_db db)
+        {
+            SourceGrid.Cells.Editors.TextBox lessonsEditor = new SourceGrid.Cells.Editors.TextBox(typeof(string));
+            {
+                lessonsEditor.Control.AutoCompleteMode = AutoCompleteMode.Suggest;
+                lessonsEditor.Control.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                AutoCompleteStringCollection source = new AutoCompleteStringCollection();
+                var lessons_db = from row in db.Lessons
+                                 select row.Title;
+                source.AddRange(lessons_db.ToArray());
+                lessonsEditor.Control.AutoCompleteCustomSource = source;
+                return lessonsEditor;
+            }
+        }
+
         public static int numbersOfSubGroups(int key)
         {
             int ans = 22;
             while ((key & (1 << --ans)) == 0) ;
             return ans;
+        }
+
+        public static bool isWillLesson(int key, int week, int subgroup, int subgroups)
+        {
+            switch (week)
+            {
+                case 1:
+                    return (key & (1 << subgroup-1)) != 0;
+                case 2:
+                    return (key & (1 << (subgroups + subgroup-1))) != 0;
+                default:
+                    return false;
+            }
+        }
+
+        public static bool isLessonEveryWeek(int key, int subgroups)
+        {
+            return key == ((1 << subgroups*2 + 1) - 1);
+        }
+
+        public static String LessonString(ds_db.ft_timetableRow row, int maxLength)
+        {
+            if (row.LessonsRow.Title.Length <= maxLength)
+               return string.Format("{0}\n{1} {2}.{3}.",
+               row.LessonsRow.Title,
+               row.TeachersRow.LastName,
+               row.TeachersRow.FirstName[0],
+               row.TeachersRow.Patronymic[0]);
+            else
+               return string.Format("{0}\n{1} {2}.{3}.",
+               row.LessonsRow.Abbreviation,
+               row.TeachersRow.LastName,
+               row.TeachersRow.FirstName[0],
+               row.TeachersRow.Patronymic[0]);
         }
     }
 
@@ -50,6 +99,7 @@ namespace TimeTable
         {
             base.OnFocusEntered(sender, e);
             oldValue = (string)sender.Value;
+            sender.Cell.Editor = Methods.getLessonsEditor(ref db);
         }
 
         public override void OnValueChanged(SourceGrid.CellContext sender, EventArgs e)
@@ -82,7 +132,7 @@ namespace TimeTable
                     foreach (var row in table)
                     {
                         row.WeekSubGroup &= 0xFFFFFF ^ (1 << c_SubGroupWeek);
-                        if (row.WeekSubGroup == (1 << TimeTableTools.numbersOfSubGroups(row.WeekSubGroup)))
+                        if (row.WeekSubGroup == (1 << Methods.numbersOfSubGroups(row.WeekSubGroup)))
                             row.Delete();
                         break;
                     }
@@ -117,12 +167,10 @@ namespace TimeTable
             else
             {
                 if (grid[c_row + 1, c_col] != null)
-                    grid[c_row + 1, c_col].Editor = TimeTableTools.getTeachersEditor(ref db);
+                    grid[c_row + 1, c_col].Editor = Methods.getTeachersEditor(ref db);
                 if (grid[c_row + 2, c_col] != null)
                     grid[c_row + 2, c_col].Editor = new SourceGrid.Cells.Editors.TextBox(typeof(string));
             }
-
-
 
             int c_group = int.Parse(groups.Text);
             int c_number = (int)grid[c_row, 0].Value;
@@ -137,21 +185,6 @@ namespace TimeTable
 
             if (sender.Value == null)
             {
-                DialogResult result = MessageBox.Show("Удалить занятие?", "Удаление занятия", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == System.Windows.Forms.DialogResult.Yes)
-                {
-                    foreach (var row in table)
-                    {
-                        row.WeekSubGroup &= 0xFFFFFF ^ (1 << c_SubGroupWeek);
-                        if (row.WeekSubGroup == (1 << TimeTableTools.numbersOfSubGroups(row.WeekSubGroup)))
-                            row.Delete();
-                        break;
-                    }
-                    grid[c_row, c_col].Value = grid[c_row + 1, c_col].Value = grid[c_row + 2, c_col].Value = "";
-                    grid[c_row + 1, c_col].Editor = grid[c_row + 2, c_col].Editor = null;
-                }
-                else
-                    ((SourceGrid.Grid)sender.Grid)[c_row, c_col].Value = oldValue;
                 return;
             }
 
@@ -243,6 +276,8 @@ namespace TimeTable
         public override void OnEditEnded(CellContext sender, EventArgs e)
         {
             base.OnEditEnded(sender, e);
+            if (sender.Value == null)
+                return;
 
             int c_row = sender.Position.Row;
             int c_col = sender.Position.Column;
@@ -251,7 +286,6 @@ namespace TimeTable
             int c_group = int.Parse(groups.Text);
             int c_number = (int)((SourceGrid.Grid)sender.Grid)[c_row, 0].Value;
             SourceGrid.Grid grid = (SourceGrid.Grid)sender.Grid;
-
             var teacherInfo = ((string)grid[c_row, c_col].Value).Split(' ').ToArray();
             if (teacherInfo.Length != 3)
             {

@@ -61,6 +61,7 @@
             this.teachersTableAdapter = new TimeTable.ds_dbTableAdapters.TeachersTableAdapter();
             this.getGroupsFTTableAdapter = new TimeTable.ds_dbTableAdapters.getGroupsFTTableAdapter();
             this.getGroupsPTTableAdapter = new TimeTable.ds_dbTableAdapters.getGroupsPTTableAdapter();
+            this.ms_settings = new System.Windows.Forms.ToolStripMenuItem();
             this.ms_menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_sem)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -100,6 +101,7 @@
             this.ms_menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ms_file,
             this.ms_refresh,
+            this.ms_settings,
             this.ms_help,
             this.ms_about});
             this.ms_menu.Location = new System.Drawing.Point(0, 0);
@@ -347,6 +349,13 @@
             // 
             this.getGroupsPTTableAdapter.ClearBeforeFill = true;
             // 
+            // ms_settings
+            // 
+            this.ms_settings.Name = "ms_settings";
+            this.ms_settings.Size = new System.Drawing.Size(79, 20);
+            this.ms_settings.Text = "Настройки";
+            this.ms_settings.Click += new System.EventHandler(this.ms_settings_Click);
+            // 
             // form_main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -410,6 +419,7 @@
         public System.Windows.Forms.ComboBox cb_days;
         public ds_db ds_timetable;
         public SourceGrid.Grid grid;
+        private System.Windows.Forms.ToolStripMenuItem ms_settings;
     }
 }
 
