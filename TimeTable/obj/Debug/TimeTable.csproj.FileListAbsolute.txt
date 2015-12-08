@@ -24,3 +24,5 @@ E:\study\5 sem\curs\Project\TimeTable — копия\TimeTable\obj\Debug\TimeTab
 E:\study\5 sem\curs\Project\TimeTable\TimeTable\bin\Debug\SourceGrid.dll
 E:\study\5 sem\curs\Project\TimeTable\TimeTable\obj\Debug\TimeTable.SettingsForm.resources
 E:\study\5 sem\curs\Project\TimeTable\TimeTable\obj\Debug\TimeTable.csprojResolveAssemblyReference.cache
+E:\study\5 sem\curs\Project\TimeTable\TimeTable\obj\Debug\TimeTable.formTeachers.resources
+E:\study\5 sem\curs\Project\TimeTable\TimeTable\obj\Debug\TimeTable.formLessons.resources

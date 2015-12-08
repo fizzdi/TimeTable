@@ -51,9 +51,9 @@ namespace TimeTable.Tools
             switch (week)
             {
                 case 1:
-                    return (key & (1 << subgroup-1)) != 0;
+                    return (key & (1 << subgroup - 1)) != 0;
                 case 2:
-                    return (key & (1 << (subgroups + subgroup-1))) != 0;
+                    return (key & (1 << (subgroups + subgroup - 1))) != 0;
                 default:
                     return false;
             }
@@ -61,23 +61,23 @@ namespace TimeTable.Tools
 
         public static bool isLessonEveryWeek(int key, int subgroups)
         {
-            return key == ((1 << subgroups*2 + 1) - 1);
+            return key == ((1 << subgroups * 2 + 1) - 1);
         }
 
         public static String LessonString(ds_db.ft_timetableRow row, int maxLength)
         {
             if (row.LessonsRow.Title.Length <= maxLength)
-               return string.Format("{0}\n{1} {2}.{3}.",
-               row.LessonsRow.Title,
-               row.TeachersRow.LastName,
-               row.TeachersRow.FirstName[0],
-               row.TeachersRow.Patronymic[0]);
+                return string.Format("{0}\n{1} {2}.{3}.",
+                row.LessonsRow.Title,
+                row.TeachersRow.LastName,
+                row.TeachersRow.FirstName[0],
+                row.TeachersRow.Patronymic[0]);
             else
-               return string.Format("{0}\n{1} {2}.{3}.",
-               row.LessonsRow.Abbreviation,
-               row.TeachersRow.LastName,
-               row.TeachersRow.FirstName[0],
-               row.TeachersRow.Patronymic[0]);
+                return string.Format("{0}\n{1} {2}.{3}.",
+                row.LessonsRow.Abbreviation,
+                row.TeachersRow.LastName,
+                row.TeachersRow.FirstName[0],
+                row.TeachersRow.Patronymic[0]);
         }
 
         public static String LessonString(ds_db.pt_timetableRow row, int maxLength)
@@ -95,11 +95,48 @@ namespace TimeTable.Tools
                 row.TeachersRow.FirstName[0],
                 row.TeachersRow.Patronymic[0]);
         }
+
+        public static void deleteDayOfGroup(int dayNumber, int groupNumber, ds_db.ft_timetableDataTable db)
+        {
+            var dayTimeTable = from row in db
+                               where row.Day == dayNumber && row.GroupNumber == groupNumber
+                               select row;
+            foreach (var row in dayTimeTable)
+                row.Delete();
+        }
+
+        public static void deleteDayOfGroup(int dayNumber, int groupNumber, ds_db.pt_timetableDataTable db)
+        {
+            var dayTimeTable = from row in db
+                               where row.Day == dayNumber && row.GroupNumber == groupNumber
+                               select row;
+            foreach (var row in dayTimeTable)
+                row.Delete();
+        }
+
+        public static void deleteGroup(int groupNumber, ds_db.pt_timetableDataTable db)
+        {
+            var dayTimeTable = from row in db
+                               where row.GroupNumber == groupNumber
+                               select row;
+            foreach (var row in dayTimeTable)
+                row.Delete();
+        }
+
+        public static void deleteGroup(int groupNumber, ds_db.ft_timetableDataTable db)
+        {
+            var dayTimeTable = from row in db
+                               where row.GroupNumber == groupNumber
+                               select row;
+            foreach (var row in dayTimeTable)
+                row.Delete();
+        }
+
     }
 
     //Contoller for cells with lessons's info
     class LessonCellContollerFT : SourceGrid.Cells.Controllers.ControllerBase
-         
+
     {
         ds_db.ft_timetableDataTable db_table;
         ds_db.LessonsDataTable lessons;
@@ -211,8 +248,8 @@ namespace TimeTable.Tools
             }
 
             var q_les = from row in lessons
-                          where row.Title == (string)grid[c_row, c_col].Value
-                          select row;
+                        where row.Title == (string)grid[c_row, c_col].Value
+                        select row;
             if (q_les.Count() == 0)
             {
                 DialogResult result = MessageBox.Show("Вы хотите добавить новый предмет?", "Новый предмет", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -321,10 +358,10 @@ namespace TimeTable.Tools
             }
 
             var q_teachers = from row in teachers
-                           where row.LastName == teacherInfo[0] &&
-                                 row.FirstName == teacherInfo[1] &&
-                                 row.Patronymic == teacherInfo[2]
-                           select row.TeacherID;
+                             where row.LastName == teacherInfo[0] &&
+                                   row.FirstName == teacherInfo[1] &&
+                                   row.Patronymic == teacherInfo[2]
+                             select row.TeacherID;
 
             if (q_teachers.Count() == 0)
             {

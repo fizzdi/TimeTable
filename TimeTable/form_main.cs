@@ -14,7 +14,7 @@ namespace TimeTable
             ds_timetable.Lessons.LessonIDColumn.AutoIncrementStep = 1;
             ds_timetable.Teachers.TeacherIDColumn.AutoIncrementSeed = 1;
             ds_timetable.Teachers.TeacherIDColumn.AutoIncrementStep = 1;
-            //but_prevDay.Enabled = but_nextDay.Enabled = false;
+            but_prevDay.Enabled = but_nextDay.Enabled = false;
         }
 
         private void form_main_Load(object sender, EventArgs e)
@@ -37,13 +37,13 @@ namespace TimeTable
 
         private void cb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            /*if (cb_days.SelectedIndex == 0)
+            if (cb_days.SelectedIndex == 0)
                 but_prevDay.Enabled = false;
             else but_prevDay.Enabled = true;
 
             if (cb_days.SelectedIndex == 5)
                 but_nextDay.Enabled = false;
-            else but_nextDay.Enabled = true;*/
+            else but_nextDay.Enabled = true;
 
             if (cb_groups.SelectedIndex != -1 && cb_days.SelectedIndex == -1)
             {
@@ -51,7 +51,10 @@ namespace TimeTable
             }
 
             if (cb_groups.SelectedIndex != -1 && cb_days.SelectedIndex != -1)
-                fillGridOfDay_Group(cb_days.SelectedIndex + 1, int.Parse(cb_groups.Text), 2, rb_parttime.Checked);
+            {
+                ////!!!!!
+                nud_subgroups.Value = fillGridOfDay_Group(cb_days.SelectedIndex + 1, int.Parse(cb_groups.Text), (int)nud_subgroups.Value, rb_parttime.Checked);
+            }
         }
 
         private void but_prevDay_Click(object sender, EventArgs e)
@@ -67,7 +70,9 @@ namespace TimeTable
         private void ms_refresh_Click(object sender, EventArgs e)
         {
             tam_db.UpdateAll(ds_timetable);
-            fillGridOfDay_Group(cb_days.SelectedIndex + 1, int.Parse(cb_groups.Text), 2, rb_parttime.Checked);
+            {
+                nud_subgroups.Value = fillGridOfDay_Group(cb_days.SelectedIndex + 1, int.Parse(cb_groups.Text), (int)nud_subgroups.Value, rb_parttime.Checked);
+            }
         }
 
         private void ms_exit_Click(object sender, EventArgs e)
@@ -83,7 +88,17 @@ namespace TimeTable
                 MessageBox.Show("Введите номер группы!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 cb_groups.Text = "";
             }
-            else cb_groups.SelectedIndex = cb_groups.Items.Add(cb_groups.Text);
+            else
+            {
+                if (cb_groups.Items.Contains(cb_groups.Text))
+                {
+                    MessageBox.Show("Текущая группа уже существует!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    nud_subgroups.Value = fillGridOfDay_Group(cb_days.SelectedIndex + 1, int.Parse(cb_groups.Text), (int)nud_subgroups.Value, rb_parttime.Checked);
+
+                }
+                else
+                    cb_groups.SelectedIndex = cb_groups.Items.Add(cb_groups.Text);
+            }
         }
 
         private void form_main_FormClosing(object sender, FormClosingEventArgs e)
@@ -94,23 +109,36 @@ namespace TimeTable
 
         private void ms_about_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(String.Format("Расписание занятий v.{0}\nКузнецов Дмитрий\ne-mail: kuznetsov.da@list.ru", "1.01a"), "О программе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(String.Format("Расписание занятий v.{0}\nКузнецов Дмитрий\ne-mail: kuznetsov.da@list.ru", "1.04c"), "О программе", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Tools.ToExcel.CreateBooks(ref ds_timetable);
-        }
-
-        public void fillGridOfDay_Group(int dayNumber, int groupNumber, int subgroup, bool partTime = false)
+        public int fillGridOfDay_Group(int dayNumber, int groupNumber, int subgroup, bool partTime = false)
         {
             string[] roman_numbers = { "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X" };
             const int lessons = 8;
-            int header_span = subgroup == 1 ? 1 : 2;
             grid.Rows.Clear();
             grid.ClipboardMode = SourceGrid.ClipboardMode.Delete | SourceGrid.ClipboardMode.Copy;
             grid.SelectionMode = SourceGrid.GridSelectionMode.Cell;
             grid.Selection.EnableMultiSelection = false;
+
+            if (partTime)
+            {
+                var dayTimeTable = from row in ds_timetable.pt_timetable
+                                   where row.Day == dayNumber && row.GroupNumber == groupNumber
+                                   select row.WeekSubGroup;
+                if (dayTimeTable.Count() > 0)
+                    subgroup = Tools.Methods.numbersOfSubGroups(dayTimeTable.First()) / 2;
+            }
+            else
+            {
+                var dayTimeTable = from row in ds_timetable.ft_timetable
+                                   where row.Day == dayNumber && row.GroupNumber == groupNumber
+                                   orderby row.Number
+                                   select row.WeekSubGroup;
+                if (dayTimeTable.Count() > 0)
+                    subgroup = Tools.Methods.numbersOfSubGroups(dayTimeTable.First()) / 2;
+            }
+            int header_span = subgroup == 1 ? 1 : 2;
 
 
             //Editors
@@ -129,7 +157,7 @@ namespace TimeTable
             //Column Number of lesson
             grid.Columns[0].Width = 30;
             grid[0, 0] = new SourceGrid.Cells.Cell("№");
-            grid[0, 0].RowSpan = 2;
+            grid[0, 0].RowSpan = header_span;
             grid[0, 0].View = viewEvenLessons;
 
 
@@ -137,23 +165,28 @@ namespace TimeTable
             grid[0, 1] = new SourceGrid.Cells.Cell("Первая неделя");
             grid[0, 1].ColumnSpan = subgroup;
             grid[0, 1].View = viewEvenLessons;
+            if (subgroup == 1)
+                grid.Columns[1].Width *= 2;
 
             //Column second week
             grid[0, 1 + subgroup] = new SourceGrid.Cells.Cell("Вторая неделя");
             grid[0, 1 + subgroup].ColumnSpan = subgroup;
             grid[0, 1 + subgroup].View = viewEvenLessons;
+            if (subgroup == 1)
+                grid.Columns[2].Width *= 2;
 
             //subColumns of week
-            for (int i = 0; i < subgroup; ++i)
+            if (subgroup != 1)
             {
-                grid.Columns[1 + i].Width = grid.Columns[1 + subgroup + i].Width = 150;
-                grid[1, 1 + i] = new SourceGrid.Cells.Cell(roman_numbers[i]);
-                grid[1, 1 + subgroup + i] = new SourceGrid.Cells.Cell(roman_numbers[i]);
-                grid[1, 1 + i].View = viewEvenLessons;
-                grid[1, 1 + subgroup + i].View = viewEvenLessons;
+                for (int i = 0; i < subgroup; ++i)
+                {
+                    grid.Columns[1 + i].Width = grid.Columns[1 + subgroup + i].Width = 150;
+                    grid[1, 1 + i] = new SourceGrid.Cells.Cell(roman_numbers[i]);
+                    grid[1, 1 + subgroup + i] = new SourceGrid.Cells.Cell(roman_numbers[i]);
+                    grid[1, 1 + i].View = viewEvenLessons;
+                    grid[1, 1 + subgroup + i].View = viewEvenLessons;
+                }
             }
-
-
 
             //Initialization cells
             for (int i = header_span; i < grid.RowsCount; ++i)
@@ -202,7 +235,6 @@ namespace TimeTable
 
                 }
             }
-
 
             if (partTime)
             {
@@ -286,6 +318,7 @@ namespace TimeTable
                 }
             }
 
+            return subgroup;
         } // end fillGridOfDay_Group
 
         private void ms_settings_Click(object sender, EventArgs e)
@@ -300,6 +333,7 @@ namespace TimeTable
             cb_groups.Text = "";
             cb_groups.SelectedIndex = -1;
             cb_days.SelectedIndex = -1;
+            but_prevDay.Enabled = but_nextDay.Enabled = false;
             if (rb_fulltime.Checked)
             {
                 AutoCompleteStringCollection source = new AutoCompleteStringCollection();
@@ -318,6 +352,51 @@ namespace TimeTable
                 cb_groups.Items.Clear();
                 cb_groups.Items.AddRange(groups);
             }
+        }
+
+        private void ms_saveas_xls_Click(object sender, EventArgs e)
+        {
+            Tools.ToExcel.CreateBooks(ref ds_timetable);
+        }
+
+        private void ms_delday_Click(object sender, EventArgs e)
+        {
+            if (rb_fulltime.Checked)
+                Tools.Methods.deleteDayOfGroup(cb_days.SelectedIndex + 1, int.Parse(cb_groups.Text), ds_timetable.ft_timetable);
+            else Tools.Methods.deleteDayOfGroup(cb_days.SelectedIndex + 1, int.Parse(cb_groups.Text), ds_timetable.pt_timetable);
+        }
+
+        private void ms_delall_Click(object sender, EventArgs e)
+        {
+            if (rb_fulltime.Checked)
+                Tools.Methods.deleteGroup(int.Parse(cb_groups.Text), ds_timetable.ft_timetable);
+            else Tools.Methods.deleteGroup(int.Parse(cb_groups.Text), ds_timetable.pt_timetable);
+        }
+
+        private void ms_day_next_Click(object sender, EventArgs e)
+        {
+            if (cb_days.SelectedIndex < 5)
+                cb_days.SelectedIndex++;
+        }
+
+        private void ms_day_back_Click(object sender, EventArgs e)
+        {
+            if (cb_days.SelectedIndex > 0)
+                cb_days.SelectedIndex--;
+        }
+
+        private void ms_teachers_Click(object sender, EventArgs e)
+        {
+            formTeachers frm = new formTeachers();
+            frm.ShowDialog();
+            tam_db.TeachersTableAdapter.Fill(ds_timetable.Teachers);
+        }
+
+        private void ms_lections_Click(object sender, EventArgs e)
+        {
+            formLessons frm = new formLessons();
+            frm.ShowDialog();
+            tam_db.LessonsTableAdapter.Fill(ds_timetable.Lessons);
         }
     }
 }
