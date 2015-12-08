@@ -79,6 +79,22 @@ namespace TimeTable.Tools
                row.TeachersRow.FirstName[0],
                row.TeachersRow.Patronymic[0]);
         }
+
+        public static String LessonString(ds_db.pt_timetableRow row, int maxLength)
+        {
+            if (row.LessonsRow.Title.Length <= maxLength)
+                return string.Format("{0}\n{1} {2}.{3}.",
+                row.LessonsRow.Title,
+                row.TeachersRow.LastName,
+                row.TeachersRow.FirstName[0],
+                row.TeachersRow.Patronymic[0]);
+            else
+                return string.Format("{0}\n{1} {2}.{3}.",
+                row.LessonsRow.Abbreviation,
+                row.TeachersRow.LastName,
+                row.TeachersRow.FirstName[0],
+                row.TeachersRow.Patronymic[0]);
+        }
     }
 
     //Contoller for cells with lessons's info
