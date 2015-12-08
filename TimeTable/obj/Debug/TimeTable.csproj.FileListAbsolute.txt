@@ -26,3 +26,18 @@ E:\study\5 sem\curs\Project\TimeTable\TimeTable\obj\Debug\TimeTable.SettingsForm
 E:\study\5 sem\curs\Project\TimeTable\TimeTable\obj\Debug\TimeTable.csprojResolveAssemblyReference.cache
 E:\study\5 sem\curs\Project\TimeTable\TimeTable\obj\Debug\TimeTable.formTeachers.resources
 E:\study\5 sem\curs\Project\TimeTable\TimeTable\obj\Debug\TimeTable.formLessons.resources
+C:\Users\Fizz\Desktop\TimeTable\TimeTable\bin\Debug\TimeTable.exe.config
+C:\Users\Fizz\Desktop\TimeTable\TimeTable\obj\Debug\TimeTable.exe
+C:\Users\Fizz\Desktop\TimeTable\TimeTable\obj\Debug\TimeTable.pdb
+C:\Users\Fizz\Desktop\TimeTable\TimeTable\bin\Debug\timetabledb.accdb
+C:\Users\Fizz\Desktop\TimeTable\TimeTable\bin\Debug\TimeTable.exe
+C:\Users\Fizz\Desktop\TimeTable\TimeTable\bin\Debug\TimeTable.pdb
+C:\Users\Fizz\Desktop\TimeTable\TimeTable\bin\Debug\SourceGrid.dll
+C:\Users\Fizz\Desktop\TimeTable\TimeTable\obj\Debug\TimeTable.csprojResolveAssemblyReference.cache
+C:\Users\Fizz\Desktop\TimeTable\TimeTable\obj\Debug\TimeTable.formTeachers.resources
+C:\Users\Fizz\Desktop\TimeTable\TimeTable\obj\Debug\TimeTable.form_newLesson.resources
+C:\Users\Fizz\Desktop\TimeTable\TimeTable\obj\Debug\TimeTable.form_main.resources
+C:\Users\Fizz\Desktop\TimeTable\TimeTable\obj\Debug\TimeTable.formLessons.resources
+C:\Users\Fizz\Desktop\TimeTable\TimeTable\obj\Debug\TimeTable.Properties.Resources.resources
+C:\Users\Fizz\Desktop\TimeTable\TimeTable\obj\Debug\TimeTable.SettingsForm.resources
+C:\Users\Fizz\Desktop\TimeTable\TimeTable\obj\Debug\TimeTable.csproj.GenerateResource.Cache
