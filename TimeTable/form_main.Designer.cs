@@ -39,6 +39,7 @@
             this.ms_config = new System.Windows.Forms.ToolStripMenuItem();
             this.ms_exit = new System.Windows.Forms.ToolStripMenuItem();
             this.ms_refresh = new System.Windows.Forms.ToolStripMenuItem();
+            this.ms_settings = new System.Windows.Forms.ToolStripMenuItem();
             this.ms_help = new System.Windows.Forms.ToolStripMenuItem();
             this.ms_about = new System.Windows.Forms.ToolStripMenuItem();
             this.b_addgroup = new System.Windows.Forms.Button();
@@ -61,7 +62,6 @@
             this.teachersTableAdapter = new TimeTable.ds_dbTableAdapters.TeachersTableAdapter();
             this.getGroupsFTTableAdapter = new TimeTable.ds_dbTableAdapters.getGroupsFTTableAdapter();
             this.getGroupsPTTableAdapter = new TimeTable.ds_dbTableAdapters.getGroupsPTTableAdapter();
-            this.ms_settings = new System.Windows.Forms.ToolStripMenuItem();
             this.ms_menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_sem)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -160,6 +160,13 @@
             this.ms_refresh.Size = new System.Drawing.Size(73, 20);
             this.ms_refresh.Text = "Обновить";
             this.ms_refresh.Click += new System.EventHandler(this.ms_refresh_Click);
+            // 
+            // ms_settings
+            // 
+            this.ms_settings.Name = "ms_settings";
+            this.ms_settings.Size = new System.Drawing.Size(79, 20);
+            this.ms_settings.Text = "Настройки";
+            this.ms_settings.Click += new System.EventHandler(this.ms_settings_Click);
             // 
             // ms_help
             // 
@@ -271,6 +278,7 @@
             this.rb_parttime.TabStop = true;
             this.rb_parttime.Text = "Очно-заочная";
             this.rb_parttime.UseVisualStyleBackColor = true;
+            this.rb_parttime.CheckedChanged += new System.EventHandler(this.rb_CheckedChanged);
             // 
             // rb_fulltime
             // 
@@ -283,6 +291,7 @@
             this.rb_fulltime.TabStop = true;
             this.rb_fulltime.Text = "Очная";
             this.rb_fulltime.UseVisualStyleBackColor = true;
+            this.rb_fulltime.CheckedChanged += new System.EventHandler(this.rb_CheckedChanged);
             // 
             // grid
             // 
@@ -348,13 +357,6 @@
             // getGroupsPTTableAdapter
             // 
             this.getGroupsPTTableAdapter.ClearBeforeFill = true;
-            // 
-            // ms_settings
-            // 
-            this.ms_settings.Name = "ms_settings";
-            this.ms_settings.Size = new System.Drawing.Size(79, 20);
-            this.ms_settings.Text = "Настройки";
-            this.ms_settings.Click += new System.EventHandler(this.ms_settings_Click);
             // 
             // form_main
             // 

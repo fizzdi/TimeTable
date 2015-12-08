@@ -33,10 +33,6 @@ namespace TimeTable
             source.AddRange(groups);
             cb_groups.AutoCompleteCustomSource = source;
             cb_groups.Items.AddRange(groups);
-
-
-
-            //TimeTableTools.fillGridOfDay_Group(1, 341, 2, this);
         }
 
         private void cb_SelectedIndexChanged(object sender, EventArgs e)
@@ -55,7 +51,7 @@ namespace TimeTable
             }
 
             if (cb_groups.SelectedIndex != -1 && cb_days.SelectedIndex != -1)
-                fillGridOfDay_Group(cb_days.SelectedIndex + 1, int.Parse(cb_groups.Text), 2);
+                fillGridOfDay_Group(cb_days.SelectedIndex + 1, int.Parse(cb_groups.Text), 2, rb_parttime.Checked);
         }
 
         private void but_prevDay_Click(object sender, EventArgs e)
@@ -71,7 +67,7 @@ namespace TimeTable
         private void ms_refresh_Click(object sender, EventArgs e)
         {
             tam_db.UpdateAll(ds_timetable);
-            //TimeTableTools.fillGridOfDay_Group(cb_days.SelectedIndex + 1, int.Parse(cb_groups.Text), ref dgv_maintable, ref ds_timetable);
+            fillGridOfDay_Group(cb_days.SelectedIndex + 1, int.Parse(cb_groups.Text), 2, rb_parttime.Checked);
         }
 
         private void ms_exit_Click(object sender, EventArgs e)
@@ -88,8 +84,6 @@ namespace TimeTable
                 cb_groups.Text = "";
             }
             else cb_groups.SelectedIndex = cb_groups.Items.Add(cb_groups.Text);
-            //TimeTableTools.fillGridOfDay_Group(cb_days.SelectedIndex + 1, int.Parse(cb_groups.Text), ref dgv_maintable, ref ds_timetable);
-
         }
 
         private void form_main_FormClosing(object sender, FormClosingEventArgs e)
@@ -120,8 +114,8 @@ namespace TimeTable
 
 
             //Editors
-            SourceGrid.Cells.Editors.TextBox lessonsEditor = TimeTable.Tools.Methods.getLessonsEditor(ref ds_timetable);
-            SourceGrid.Cells.Editors.TextBox teacherEditor = TimeTable.Tools.Methods.getTeachersEditor(ref ds_timetable);
+            SourceGrid.Cells.Editors.TextBox lessonsEditor = TimeTable.Tools.Methods.getLessonsEditor(ds_timetable.Lessons);
+            SourceGrid.Cells.Editors.TextBox teacherEditor = TimeTable.Tools.Methods.getTeachersEditor(ds_timetable.Teachers);
 
             //Views
             SourceGrid.Cells.Views.Cell viewEvenLessons = new SourceGrid.Cells.Views.Cell();
@@ -137,7 +131,6 @@ namespace TimeTable
             grid[0, 0] = new SourceGrid.Cells.Cell("№");
             grid[0, 0].RowSpan = 2;
             grid[0, 0].View = viewEvenLessons;
-            //grid[0,0].Controller
 
 
             //Column first week
@@ -187,15 +180,25 @@ namespace TimeTable
                     if ((i - header_span) % 3 == 0)
                     {
                         grid[i, j].Editor = lessonsEditor;
-                        grid[i, j].AddController(new Tools.LessonCellContoller(ref cb_days, ref cb_groups, ref ds_timetable));
+                        if (partTime)
+                            grid[i, j].AddController(new Tools.LessonCellContollerPT(ref cb_days, ref cb_groups, ds_timetable.pt_timetable, ds_timetable.Lessons, ds_timetable.Teachers));
+                        else
+                            grid[i, j].AddController(new Tools.LessonCellContollerFT(ref cb_days, ref cb_groups, ds_timetable.ft_timetable, ds_timetable.Lessons, ds_timetable.Teachers));
                     }
                     //Teacher row
                     else if ((i - header_span) % 3 == 1)
                     {
-                        grid[i, j].AddController(new Tools.TeacherCellContoller(ref cb_days, ref cb_groups, ref ds_timetable));
+                        if (partTime)
+                            grid[i, j].AddController(new Tools.TeacherCellContollerPT(ref cb_days, ref cb_groups, ds_timetable.pt_timetable, ds_timetable.Lessons, ds_timetable.Teachers));
+                        else
+                            grid[i, j].AddController(new Tools.TeacherCellContollerFT(ref cb_days, ref cb_groups, ds_timetable.ft_timetable, ds_timetable.Lessons, ds_timetable.Teachers));
+                    }   //Audience row
+                    else if (partTime)
+                    {
+                        grid[i, j].AddController(new Tools.AudienceCellContollerPT(ref cb_days, ref cb_groups, ds_timetable.pt_timetable));
                     }
-                    else //Audience row
-                        grid[i, j].AddController(new Tools.AudienceCellContoller(ref cb_days, ref cb_groups, ref ds_timetable));
+                    else
+                        grid[i, j].AddController(new Tools.AudienceCellContollerFT(ref cb_days, ref cb_groups, ds_timetable.ft_timetable));
 
                 }
             }
@@ -290,6 +293,31 @@ namespace TimeTable
             SettingsForm sfrm = new SettingsForm();
             sfrm.Owner = this;
             sfrm.ShowDialog();
+        }
+
+        private void rb_CheckedChanged(object sender, EventArgs e)
+        {
+            cb_groups.Text = "";
+            cb_groups.SelectedIndex = -1;
+            cb_days.SelectedIndex = -1;
+            if (rb_fulltime.Checked)
+            {
+                AutoCompleteStringCollection source = new AutoCompleteStringCollection();
+                var groups = ds_timetable.getGroupsFT.Select(t => t.GroupNumber.ToString()).ToArray();
+                source.AddRange(groups);
+                cb_groups.AutoCompleteCustomSource = source;
+                cb_groups.Items.Clear();
+                cb_groups.Items.AddRange(groups);
+            }
+            else
+            {
+                AutoCompleteStringCollection source = new AutoCompleteStringCollection();
+                var groups = ds_timetable.getGroupsPT.Select(t => t.GroupNumber.ToString()).ToArray();
+                source.AddRange(groups);
+                cb_groups.AutoCompleteCustomSource = source;
+                cb_groups.Items.Clear();
+                cb_groups.Items.AddRange(groups);
+            }
         }
     }
 }
