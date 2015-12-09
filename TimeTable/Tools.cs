@@ -39,6 +39,18 @@ namespace TimeTable.Tools
             }
         }
 
+        public static SourceGrid.Cells.Editors.TextBox getAuditor(ds_db.ft_timetableDataTable table)
+        {
+            SourceGrid.Cells.Editors.TextBox lessonsEditor = new SourceGrid.Cells.Editors.TextBox(typeof(string));
+            {
+                lessonsEditor.Control.AutoCompleteMode = AutoCompleteMode.Suggest;
+                lessonsEditor.Control.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                AutoCompleteStringCollection source = new AutoCompleteStringCollection();
+                source.AddRange(table.Select(t=> t.AudienceNumber).Distinct().ToArray());
+                lessonsEditor.Control.AutoCompleteCustomSource = source;
+                return lessonsEditor;
+            }
+        }
         public static int numbersOfSubGroups(int key)
         {
             int ans = 22;
@@ -397,6 +409,7 @@ namespace TimeTable.Tools
         ds_db.ft_timetableDataTable db_table;
         private ComboBox days;
         private ComboBox groups;
+        string oldValue;
 
         public AudienceCellContollerFT(ref ComboBox days, ref ComboBox groups, ds_db.ft_timetableDataTable db_table)
         {
@@ -405,6 +418,13 @@ namespace TimeTable.Tools
             this.db_table = db_table;
         }
 
+        public override void OnFocusEntering(CellContext sender, CancelEventArgs e)
+        {
+            base.OnFocusEntering(sender, e);
+            oldValue = (string)sender.Value;
+            if ((string)(((SourceGrid.Grid)sender.Grid)[sender.Position.Row - 2, sender.Position.Column].Value) != null)
+            sender.Cell.Editor = Methods.getAuditor(db_table);
+        }
         public override void OnFocusEntered(CellContext sender, EventArgs e)
         {
             base.OnFocusEntered(sender, e);
@@ -420,7 +440,27 @@ namespace TimeTable.Tools
             int c_day = days.SelectedIndex + 1;
             int c_group = int.Parse(groups.Text);
             int c_number = (int)((SourceGrid.Grid)sender.Grid)[c_row, 0].Value;
+                        string newAudience = (string)sender.Value;
+
             SourceGrid.Grid grid = (SourceGrid.Grid)sender.Grid;
+            char[] separator = {' ', '(', ')', '/', '_'};
+            var t = from row in db_table
+                    where row.Day == c_day && row.Number == c_number
+                    && row.AudienceNumber.Split(separator, StringSplitOptions.RemoveEmptyEntries).SequenceEqual(newAudience.Split(separator, StringSplitOptions.RemoveEmptyEntries))
+                    select row;
+
+            foreach(var row in t)
+            {
+                if (row.GroupNumber == c_group) continue;
+                var a = row.AudienceNumber.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+                var b = newAudience.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+                if ((row.WeekSubGroup & (1 << c_SubGroupWeek)) != 0)
+                {
+                    MessageBox.Show("Данная аудитория уже используется!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    sender.Value = oldValue;
+                    return;
+                }
+            }
 
             var table = from row in db_table
                         where row.Day == c_day
@@ -430,7 +470,6 @@ namespace TimeTable.Tools
                         && (row.WeekSubGroup & (1 << c_SubGroupWeek)) != 0
                         select row;
 
-            string newAudience = (string)sender.Value;
             if (newAudience == null)
                 newAudience = "-1";
 

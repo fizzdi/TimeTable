@@ -290,6 +290,8 @@ namespace TimeTable
                     for (int i = 0; i < subgroup; ++i)
                     {
                         //First week
+
+                        ///!!!!!!
                         if ((row.WeekSubGroup & (1 << i)) != 0)
                         {
                             grid[indOfrow, 1 + i].Value = row.LessonsRow.Title;
@@ -387,6 +389,7 @@ namespace TimeTable
 
         private void ms_teachers_Click(object sender, EventArgs e)
         {
+            tam_db.UpdateAll(ds_timetable);
             formTeachers frm = new formTeachers();
             frm.ShowDialog();
             tam_db.TeachersTableAdapter.Fill(ds_timetable.Teachers);
@@ -394,6 +397,7 @@ namespace TimeTable
 
         private void ms_lections_Click(object sender, EventArgs e)
         {
+            tam_db.UpdateAll(ds_timetable);
             formLessons frm = new formLessons();
             frm.ShowDialog();
             tam_db.LessonsTableAdapter.Fill(ds_timetable.Lessons);
